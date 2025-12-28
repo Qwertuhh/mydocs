@@ -45,6 +45,34 @@ First off, thanks for taking the time to contribute to the Medha documentation!
   bun run format
   ```
 
+## Branch Naming Convention
+
+For documentation changes, please follow this branch naming pattern:
+
+- `docs/<change-name>` - For documentation updates and additions
+
+Examples:
+
+- `docs/api-endpoints-update`
+- `docs/installation-guide`
+- `docs/troubleshooting-section`
+
+## Commit Message Format
+
+When making commits, please follow this format for documentation changes:
+
+```markdown
+docs: <brief description of change>
+
+More detailed explanation of what was changed and why, if necessary.
+```
+
+Examples:
+
+- `docs: add API authentication guide`
+- `docs: update installation instructions for Windows`
+- `docs: fix typo in getting started section`
+
 ## Pull Request Process
 
 1. Ensure any install or build dependencies are removed before the end of the layer when doing a build.
