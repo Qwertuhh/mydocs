@@ -1,0 +1,86 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
+/* Override Infima variables with shadcn neutral palette */
+:root {
+  /* Neutral palette (light mode) */
+  --ifm-color-primary: #737373;        /* neutral-500 */
+  --ifm-color-primary-dark: #525252;   /* neutral-600 */
+  --ifm-color-primary-darker: #404040; /* neutral-700 */
+  --ifm-color-primary-darkest: #262626;/* neutral-800 */
+  --ifm-color-primary-light: #a3a3a3;  /* neutral-400 */
+  --ifm-color-primary-lighter: #d4d4d4;/* neutral-300 */
+  --ifm-color-primary-lightest: #e5e5e5;/* neutral-200 */
+  --ifm-color-hyperlink: #11b0b2;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.05);
+
+  /* * Fonts */
+  --ifm-font-family-base: 'Funnel Display', sans-serif; /* body text */
+  --ifm-font-family-monospace: 'JetBrains Mono', monospace; /* code blocks */
+
+  /* * Boder Featires */
+  --primary-boder-radius: 0.5rem;
+}
+
+/* Dark mode neutral palette */
+[data-theme='dark'] {
+  --ifm-color-primary: #d4d4d4;        /* neutral-300 */
+  --ifm-color-primary-dark: #a3a3a3;   /* neutral-400 */
+  --ifm-color-primary-darker: #737373; /* neutral-500 */
+  --ifm-color-primary-darkest: #525252;/* neutral-600 */
+  --ifm-color-primary-light: #e5e5e5;  /* neutral-200 */
+  --ifm-color-primary-lighter: #f5f5f5;/* neutral-100 */
+  --ifm-color-primary-lightest: #fafafa;/* neutral-50 */
+
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1);
+}
+
+/* * Markdown Styling */
+
+/* Global link styles */
+.markdown a {
+  color: var(--ifm-color-hyperlink); /* your custom color */
+  text-decoration: none; /* remove underline */
+  font-weight: 500;
+}
+
+/* Hover effect */
+.markdown a:hover {
+  color: #25c2a0; /* lighter shade */
+  text-decoration: underline; /* show underline on hover */
+}
+
+.header-logo {
+  width: 32px;   /* adjust size */
+  height: auto;  /* keep aspect ratio */
+  margin-right: 8px; /* spacing before header */
+  vertical-align: middle; /* align with text */
+}
+
+
+/** Blog Post Hero Section */
+.blog-post-hero-logo {
+  width: 90px;   /* adjust size */
+  height: auto;  /* keep aspect ratio */
+  margin: 5px; /* spacing before header */
+  padding: 5px;
+  vertical-align: middle; /* align with text */
+  border-radius: var(--primary-boder-radius);
+}
+
+.blog-post-hero-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:  center;
+  align-content: center;
+}
+.blog-post-hero-section p {
+  margin: 5px;
+}
