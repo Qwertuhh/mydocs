@@ -72,7 +72,7 @@ const config: Config = {
   },
   themeConfig: {
     // Replace with your project's social card
-    image: "img/mydocs_social_page.png",
+    image: "img/mydocs-social-page.png",
     colorMode: {
       respectPrefersColorScheme: true,
     },
@@ -106,7 +106,7 @@ const config: Config = {
           items: [
             {
               label: "Projects",
-              to: "/docs/projects",
+              to: "/docs/projects/intro",
             },
           ],
         },
