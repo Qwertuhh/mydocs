@@ -5,7 +5,7 @@ import type * as Preset from "@docusaurus/preset-classic";
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: "My Docs",
+  title: "MyDocs",
   tagline: "This docs is to help you get proper context for My Projects",
   favicon: "img/favicon.ico",
 
@@ -15,15 +15,15 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: "https://your-docusaurus-site.example.com",
+  url: "https://qwertuhh.github.io",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: "/",
+  baseUrl: "/mydocs",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: "qwertuhh", // Usually your GitHub org/user name.
-  projectName: "medha", // Usually your repo name.
+  projectName: "mydocs", // Usually your repo name.
 
   onBrokenLinks: "throw",
 
