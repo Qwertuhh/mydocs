@@ -42,7 +42,17 @@
 }
 
 /* * Markdown Styling */
-
+.navbar__logo{
+  padding: 0.15rem;
+  display: flex;
+  justify-content: center;
+  padding-right: 0rem;
+  margin-right: 0.15rem;
+}
+.navbar__title{
+  color: white;
+  font-size: 18px;
+}
 /* Global link styles */
 .markdown a {
   color: var(--ifm-color-hyperlink); /* your custom color */
