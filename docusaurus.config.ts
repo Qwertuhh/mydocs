@@ -34,16 +34,6 @@ const config: Config = {
     defaultLocale: "en",
     locales: ["en"],
   },
-  plugins: [
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "default",
-        path: "docs",
-        routeBasePath: "docs", 
-      },
-    ],
-  ],
 
   presets: [
     [
