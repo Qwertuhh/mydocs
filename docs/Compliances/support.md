@@ -5,10 +5,11 @@ Thanks for using **mydocs**! This document explains how to get help, report prob
 ## Getting Help
 
 - **Questions & Discussions**  
-  Use the [GitHub Discussions](../../discussions) tab (if enabled) or open a general issue with the label `question`.
+  Use the [GitHub Discussions](https://github.com/qwertuhh/mydocs/discussions) tab (if enabled) or open a general issue with the label `question`.
 
 - **Bug Reports**  
-  Please open a [GitHub Issue](../../issues) with:
+  Please open a [GitHub Issue](https://github.com/qwertuhh/mydocs/issues) with:
+
   - Clear description of the problem
   - Steps to reproduce
   - Expected vs. actual behavior
@@ -25,14 +26,14 @@ If you discover a security vulnerability:
 - Instead, email us at **[arihantjain132407+github@gmail.com](mailto:arihantjain132407+github@gmail.com)**.
 - We will acknowledge receipt within 48 hours and work on a fix promptly.
 
-See our [SECURITY.md](SECURITY.md) for full details.
+See our [SECURITY.md](security.mdx) for full details.
 
 ## Supported Versions
 
 We actively support:
 
 - The latest release (`main` branch)
-- The most recent stable version (see [Releases](../../releases))
+- The most recent stable version (see [Releases](https://github.com/qwertuhh/mydocs/releases))
 
 Older versions may not receive fixes except for critical security patches.
 
@@ -52,6 +53,6 @@ This is an open-source project. While we try to respond quickly, community membe
 
 ## Additional Resources
 
-- [Code of Conduct](CODE_OF_CONDUCT.md)
-- [Contributing Guide](CONTRIBUTING.md)
-- [Security Policy](SECURITY.md)
+- [Code of Conduct](./code_of_conduct.mdx)
+- [Contributing Guide](./contribution.mdx)
+- [Security Policy](./security.mdx)
