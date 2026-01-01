@@ -90,17 +90,28 @@ const config: Config = {
           position: "left",
           label: "Compliances",
         },
-        {
-          type: "docSidebar",
-          sidebarId: "projectsSidebar",
-          position: "left",
-          label: "Projects",
-        },
         { to: "/blog", label: "Blog", position: "left" },
         {
           href: "https://github.com/qwertuhh/mydocs",
           label: "GitHub",
           position: "right",
+        },
+        {
+          type: "dropdown",
+          label: "Repository",
+          position: "left",
+          items: [
+            {
+              type: "doc",
+              label: "MyBackend",
+              docId: "Projects/MyBackend/overview", // ✅ valid docId
+            },
+            {
+              type: "doc",
+              label: "Portfolio",
+              docId: "Projects/Portfolio/overview", // ✅ another valid docId
+            },
+          ],
         },
       ],
     },
@@ -143,7 +154,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Medha. Built by qwertuhh under the Apache 2.0 License.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Medha. Built by qwertuhh under the MIT License.`,
     },
     prism: {
       theme: prismThemes.github,
