@@ -9,7 +9,7 @@
 /* Override Infima variables with shadcn neutral palette */
 :root {
   /* Neutral palette (light mode) */
-  --ifm-color-primary: #737373;        /* neutral-500 */
+  --ifm-color-primary: #232323;        /* neutral-500 */
   --ifm-color-primary-dark: #525252;   /* neutral-600 */
   --ifm-color-primary-darker: #404040; /* neutral-700 */
   --ifm-color-primary-darkest: #262626;/* neutral-800 */
