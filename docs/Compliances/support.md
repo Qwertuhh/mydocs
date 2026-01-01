@@ -2,7 +2,7 @@
 
 Thanks for using **mydocs**! This document explains how to get help, report problems, and understand what kind of support is available.
 
-## 📬 Getting Help
+## Getting Help
 
 - **Questions & Discussions**  
   Use the [GitHub Discussions](../../discussions) tab (if enabled) or open a general issue with the label `question`.
@@ -17,7 +17,7 @@ Thanks for using **mydocs**! This document explains how to get help, report prob
 - **Feature Requests**  
   Submit an issue labeled `enhancement`. Describe the use case and why it would help.
 
-## 🔒 Security Issues
+## Security Issues
 
 If you discover a security vulnerability:
 
@@ -27,7 +27,7 @@ If you discover a security vulnerability:
 
 See our [SECURITY.md](SECURITY.md) for full details.
 
-## 🛠️ Supported Versions
+## Supported Versions
 
 We actively support:
 
@@ -36,13 +36,13 @@ We actively support:
 
 Older versions may not receive fixes except for critical security patches.
 
-## ⏱️ Response Times
+## Response Times
 
 - General issues: within 5 business days
 - Security reports: within 48 hours
 - Pull requests: reviewed within 7 business days
 
-## 🙌 Community Help
+## Community Help
 
 This is an open-source project. While we try to respond quickly, community members are encouraged to:
 
@@ -50,7 +50,7 @@ This is an open-source project. While we try to respond quickly, community membe
 - Review and test pull requests
 - Share tips and solutions
 
-## 📄 Additional Resources
+## Additional Resources
 
 - [Code of Conduct](CODE_OF_CONDUCT.md)
 - [Contributing Guide](CONTRIBUTING.md)
