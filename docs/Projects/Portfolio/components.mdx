@@ -1,0 +1,347 @@
+# Components
+
+This section documents all the React components in the portfolio application, organized by their purpose and functionality.
+
+## Table of Contents
+
+- [Page Components](#page-components)
+- [Layout Components](#layout-components)
+- [Interactive Components](#interactive-components)
+
+## Page Components
+
+### HeroComponent
+
+**File**: `src/components/hero-component.tsx`
+
+**Purpose**: Main landing section with animated hero content and call-to-action elements.
+
+**Props**: None (uses internal state)
+
+**Features**:
+
+- Animated text effects with typewriter animation
+- Interactive call-to-action buttons
+- Smooth scroll navigation to other sections
+- Responsive design for mobile and desktop
+- Integration with audio system for interaction sounds
+
+**Usage**:
+
+```tsx
+<HeroComponent />
+```
+
+**Dependencies**:
+
+- Custom hooks for audio and scroll effects
+- UI components for text animations
+- React hooks for state management
+
+---
+
+### AboutMe
+
+**File**: `src/components/about-me.tsx`
+
+**Purpose**: Personal information section displaying skills, experience, and background.
+
+**Props**: None
+
+**Features**:
+
+- Animated skill progress bars
+- Personal introduction text
+- Technology stack display
+- Scroll-triggered animations
+- Responsive grid layout
+
+**Usage**:
+
+```tsx
+<AboutMe />
+```
+
+---
+
+### Projects
+
+**File**: `src/components/projects.tsx`
+
+**Purpose**: Project showcase section with filtering and detailed project information.
+
+**Props**: None
+
+**Features**:
+
+- Project card grid layout
+- Category filtering system
+- Interactive hover effects
+- External links to live demos and repositories
+- Technology stack tags for each project
+- Lazy loading for performance
+
+**Usage**:
+
+```tsx
+<Projects />
+```
+
+---
+
+### Navbar
+
+**File**: `src/components/navbar.tsx`
+
+**Purpose**: Navigation header with smooth scrolling and mobile-responsive menu.
+
+**Props**: None
+
+**Features**:
+
+- Sticky navigation on scroll
+- Smooth scroll to page sections
+- Mobile hamburger menu
+- Active section highlighting
+- Audio integration for click sounds
+- Responsive design
+
+**Usage**:
+
+```tsx
+<Navbar />
+```
+
+---
+
+### Footer
+
+**File**: `src/components/footer.tsx`
+
+**Purpose**: Footer section with social links, contact information, and copyright.
+
+**Props**: None
+
+**Features**:
+
+- Social media icon links
+- Contact information display
+- Copyright notice with current year
+- Responsive layout
+- Hover effects on links
+
+**Usage**:
+
+```tsx
+<Footer />
+```
+
+---
+
+### StaticPage
+
+**File**: `src/components/static-page.tsx`
+
+**Purpose**: Non-interactive version of the portfolio for better accessibility and performance.
+
+**Props**: None
+
+**Features**:
+
+- Simplified content presentation
+- No audio or animations
+- Better screen reader support
+- Faster loading times
+- SEO optimized
+
+**Usage**:
+
+```tsx
+<StaticPage />
+```
+
+---
+
+## Layout Components
+
+### InteractionOverlay
+
+**File**: `src/components/interaction-overlay.tsx`
+
+**Purpose**: Initial user interaction overlay to enable audio context and user consent.
+
+**Props**:
+
+- `onInteraction`: () => void - Callback when user interacts
+
+**Features**:
+
+- Enables Web Audio API (browser requirement)
+- Smooth fade-out animation
+- User consent for interactions
+- Full-screen overlay design
+- Accessibility support
+
+**Usage**:
+
+```tsx
+<InteractionOverlay onInteraction={handleInteraction} />
+```
+
+---
+
+## Interactive Components
+
+### SocialLinks
+
+**File**: `src/components/social-links.tsx`
+
+**Purpose**: Reusable social media link component with hover effects.
+
+**Props**: None (uses internal configuration)
+
+**Features**:
+
+- Social media platform icons
+- Hover animations
+- External link handling
+- Responsive sizing
+- Accessibility labels
+
+**Usage**:
+
+```tsx
+<SocialLinks />
+```
+
+---
+
+### Skillset
+
+**File**: `src/components/skillset.tsx`
+
+**Purpose**: Skills display component with progress indicators and categorization.
+
+**Props**: None
+
+**Features**:
+
+- Skill category grouping
+- Animated progress bars
+- Proficiency levels
+- Hover effects for details
+- Responsive grid layout
+
+**Usage**:
+
+```tsx
+<Skillset />
+```
+
+---
+
+## Component Architecture
+
+### Design Patterns
+
+All components follow these consistent patterns:
+
+1. **Functional Components**: Using React hooks instead of class components
+2. **TypeScript**: Full type safety with interface definitions
+3. **Props Interface**: Clear prop definitions with TypeScript interfaces
+4. **Default Exports**: Consistent export patterns
+5. **Lazy Loading**: Performance optimization with `React.lazy`
+
+### State Management
+
+- **Local State**: useState for component-specific state
+- **Global State**: Context API for audio and theme
+- **Side Effects**: useEffect for DOM interactions and subscriptions
+- **Performance**: useCallback and useMemo for expensive operations
+
+### Styling Approach
+
+- **TailwindCSS**: Utility-first CSS framework
+- **Responsive Design**: Mobile-first approach
+- **Animations**: CSS transitions and keyframes
+- **Custom Styles**: Component-specific CSS when needed
+
+### Accessibility
+
+- **Semantic HTML**: Proper HTML5 semantic elements
+- **ARIA Labels**: Screen reader support
+- **Keyboard Navigation**: Tab index and focus management
+- **Color Contrast**: WCAG compliance
+
+---
+
+## Component Dependencies
+
+### Shared Dependencies
+
+Most components depend on:
+
+- React hooks (useState, useEffect, useCallback, useMemo)
+- TailwindCSS classes
+- Custom hooks from `/hooks`
+- UI components from `/components/ui`
+
+### External Dependencies
+
+- **React Router**: For navigation and routing
+- **Framer Motion**: For complex animations (in some components)
+- **Lucide React**: For icon components
+
+### Internal Dependencies
+
+Components often import from:
+
+- `/hooks` - Custom React hooks
+- `/components/ui` - Reusable UI components
+- `/assets` - Static assets and images
+- `/types` - TypeScript type definitions
+
+---
+
+## Performance Considerations
+
+### Optimization Techniques
+
+1. **Lazy Loading**: Large components loaded on demand
+2. **React.memo**: Prevent unnecessary re-renders
+3. **useCallback**: Stable function references
+4. **useMemo**: Expensive calculations caching
+5. **Code Splitting**: Automatic with Vite
+
+### Best Practices
+
+- Keep components small and focused
+- Use proper TypeScript types
+- Implement proper error boundaries
+- Optimize images and assets
+- Use semantic HTML for SEO
+
+---
+
+## Testing Considerations
+
+### Test Strategy
+
+Components should be tested for:
+
+- **Rendering**: Correct DOM output
+- **Interactions**: User event handling
+- **Accessibility**: Screen reader compatibility
+- **Performance**: Render times and memory usage
+- **Responsive**: Different screen sizes
+
+### Testing Tools
+
+- **Jest**: Unit testing framework
+- **React Testing Library**: Component testing
+- **Cypress**: End-to-end testing
+- **Storybook**: Component documentation and testing
+
+---
+
+This documentation provides a comprehensive overview of all components in the portfolio application. For specific implementation details, refer to the individual component source files.

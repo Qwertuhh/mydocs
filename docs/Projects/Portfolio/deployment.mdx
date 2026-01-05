@@ -1,0 +1,92 @@
+---
+title: Deployment
+---
+
+This documentation covers the branch structure and deployment setup for the portfolio application.
+
+## Overview
+
+The portfolio application uses different branches to serve multiple versions of the site, including the current version and a classic version for backward compatibility.
+
+## Branch Structure
+
+### Main Branch
+
+- **Purpose**: Current production version
+- **Deployment**: https://qwertuhh.netlify.app
+- **Content**: Latest portfolio version with all features
+- **Status**: Active development and updates
+
+### Dev Branch
+
+- **Purpose**: Development version
+- **Deployment**: Merge to main branch to deploy on https://qwertuhh.netlify.app
+- **Content**: Latest portfolio version with all features
+- **Status**: Active development and updates
+
+### Classic Branch
+
+- **Purpose**: Legacy version maintenance
+- **Deployment**: https://qwertuhh-classic.netlify.app
+- **Content**: Old classic version of portfolio
+- **Status**: Maintenance mode only
+
+## Development Workflow
+
+### Branch Management
+
+1. **Main Branch**: Contains the current portfolio version
+
+   - Latest features and updates
+   - Modern design and interactions
+   - Active development
+
+2. **Classic Branch**: Maintains the old portfolio version
+   - Original design and functionality
+   - Served separately for compatibility
+   - No new features added
+
+### Version Control
+
+- **Repository**: https://github.com/qwertuhh/portfolio
+- **Service**: Git with GitHub
+- **Branch Protection**: Main branch protected
+- **Classic Branch**: Stable legacy version
+
+## Accessing Different Versions
+
+### Current Version
+
+- **URL**: https://qwertuhh.netlify.app
+- **Branch**: main
+- **Features**: Full interactive portfolio with audio and animations
+
+### Classic Version
+
+- **URL**: https://qwertuhh-classic.netlify.app
+- **Branch**: classic
+- **Features**: Original portfolio design
+- **Purpose**: Backward compatibility and reference
+
+## Development Setup
+
+### Local Development
+
+- **Environment**: Bun
+- **Build Tool**: Vite
+- **Command**: `bun run dev`
+- **Port**: Typically 5173
+
+### Branch Checkout
+
+```bash
+# Current version
+git checkout main
+
+# Classic version
+git checkout classic
+```
+
+---
+
+This deployment structure ensures both the current and classic versions of the portfolio remain accessible, with the classic version serving as a stable reference while development continues on the main branch.

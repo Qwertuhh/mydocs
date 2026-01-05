@@ -1,0 +1,516 @@
+# Codebase
+
+This documentation provides a comprehensive overview of the portfolio application's source code structure, organized by functional areas.
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Application Structure](#application-structure)
+- [Core Components](#core-components)
+- [UI Components](#ui-components)
+- [Custom Hooks](#custom-hooks)
+- [Assets](#assets)
+- [Audio System](#audio-system)
+- [Routing](#routing)
+- [Styling](#styling)
+
+## Overview
+
+The portfolio is an site to showcase yourself and your work. In my case I created the my portfolio with
+React-based single-page application built with TypeScript, Vite, and modern web technologies.
+It features interactive elements, custom audio effects, and a responsive design with smooth animations.
+
+
+### Key Technologies
+
+- **React 18** with TypeScript
+- **Vite** for build tooling
+- **React Router** for navigation
+- **TailwindCSS** for styling
+- **Custom Audio System** with Web Audio API
+
+## Application Structure
+
+### Main Entry Points
+
+#### `src/main.tsx`
+
+The application's entry point that:
+
+- Sets up React Strict Mode
+- Configures React Router with two routes:
+  - `/static` - Static page version
+  - `/*` - Main interactive portfolio
+- Wraps the app with AudioProvider for global audio context
+- Renders the root element
+
+#### `src/App.tsx`
+
+Main application component that:
+
+- Manages user interaction state
+- Implements lazy loading for performance
+- Orchestrates all major components
+- Integrates custom cursor and audio systems
+- Uses Suspense with loading fallbacks
+
+### Component Hierarchy
+
+```
+App
+├── CustomCursor
+├── InteractionOverlay
+├── AudioControl (conditional)
+├── Navbar (lazy)
+├── HeroComponent (lazy)
+├── AboutMe (lazy)
+├── Projects (lazy)
+└── Footer (lazy)
+```
+
+## Core Components
+
+### Page Components
+
+#### `components/hero-component.tsx`
+
+**Purpose**: Main landing section with animated hero content
+**Key Features**:
+
+- Animated text effects
+- Interactive call-to-action buttons
+- Responsive layout
+- Integration with audio system
+
+#### `components/about-me.tsx`
+
+**Purpose**: Personal information and skills section
+**Key Features**:
+
+- Skill display with progress indicators
+- Personal introduction
+- Animated content reveal
+
+#### `components/projects.tsx`
+
+**Purpose**: Project showcase section
+**Key Features**:
+
+- Project card grid layout
+- Filtering and categorization
+- Interactive hover effects
+- Link to project details
+
+#### `components/navbar.tsx`
+
+**Purpose**: Navigation header
+**Key Features**:
+
+- Sticky navigation
+- Smooth scroll to sections
+- Mobile responsive menu
+- Audio integration
+
+#### `components/footer.tsx`
+
+**Purpose**: Footer section with links and information
+**Key Features**:
+
+- Social media links
+- Contact information
+- Copyright notice
+
+#### `components/static-page.tsx`
+
+**Purpose**: Non-interactive version of the portfolio
+**Key Features**:
+
+- Simplified content presentation
+- No audio or animations
+- Better accessibility
+
+#### `components/interaction-overlay.tsx`
+
+**Purpose**: Initial user interaction prompt
+**Key Features**:
+
+- Enables audio context (browser requirement)
+- Smooth transition to main content
+- User consent for interactions
+
+## UI Components
+
+### Interactive Elements
+
+#### `components/ui/custom-cursor.tsx`
+
+**Purpose**: Custom cursor that follows mouse movement
+**Key Features**:
+
+- Smooth cursor animations
+- Different states for different elements
+- Performance optimized
+
+#### `components/ui/audio-control.tsx`
+
+**Purpose**: Audio playback controls
+**Key Features**:
+
+- Play/pause functionality
+- Volume control
+- Sound effects toggle
+- Visual feedback
+
+#### `components/ui/project-card.tsx`
+
+**Purpose**: Individual project display card
+**Key Features**:
+
+- Hover animations
+- Project metadata display
+- External links
+- Technology stack tags
+
+### Text Effects
+
+#### `components/ui/typewriter.tsx`
+
+**Purpose**: Typewriter text animation effect
+**Key Features**:
+
+- Configurable typing speed
+- Cursor blinking effect
+- Text completion callback
+
+#### `components/ui/hover-scramble-text.tsx`
+
+**Purpose**: Text scrambling effect on hover
+**Key Features**:
+
+- Character scrambling animation
+- Smooth transitions
+- Customizable scramble patterns
+
+#### `components/ui/hoverfliptext.tsx`
+
+**Purpose**: Text flip animation on hover
+**Key Features**:
+
+- 3D flip effect
+- Fast transitions
+- Lightweight implementation
+
+#### `components/ui/hover-text-in-slide.tsx`
+
+**Purpose**: Text slide-in animation on hover
+**Key Features**:
+
+- Directional slide effects
+- Smooth easing
+- Multiple text lines support
+
+### Visual Effects
+
+#### `components/ui/dotted-glow-background.tsx`
+
+**Purpose**: Animated dotted background with glow effects
+**Key Features**:
+
+- Particle system
+- Dynamic glow effects
+- Performance optimized canvas rendering
+
+#### `components/ui/noisy-bg.tsx`
+
+**Purpose**: Noise texture background effect
+**Key Features**:
+
+- Procedural noise generation
+- Subtle visual texture
+- Lightweight implementation
+
+#### `components/ui/liquid-glass.tsx`
+
+**Purpose**: Liquid glass morphism effect
+**Key Features**:
+
+- Glass distortion effect
+- Animated liquid movement
+- Backdrop blur integration
+
+#### `components/ui/image-bg.tsx`
+
+**Purpose**: Background image component with effects
+**Key Features**:
+
+- Parallax scrolling
+- Zoom effects
+- Overlay gradients
+
+### Utility Components
+
+#### `components/ui/loader.tsx`
+
+**Purpose**: Loading indicator component
+**Key Features**:
+
+- Animated spinner
+- Configurable size and colors
+- Suspense integration
+
+#### `components/ui/spinner.tsx`
+
+**Purpose**: Simple loading spinner
+**Key Features**:
+
+- CSS animations
+- Multiple size variants
+- Customizable colors
+
+#### `components/ui/tooltip.tsx`
+
+**Purpose**: Tooltip component for hover information
+**Key Features**:
+
+- Position calculation
+- Fade animations
+- Content customization
+
+#### `components/ui/fancy-tooltip.tsx`
+
+**Purpose**: Enhanced tooltip with styling
+**Key Features**:
+
+- Rich content support
+- Advanced positioning
+- Custom styling
+
+#### `components/ui/icon-badge.tsx`
+
+**Purpose**: Icon display with badge
+**Key Features**:
+
+- SVG icon support
+- Badge notifications
+- Hover effects
+
+## Custom Hooks
+
+### Audio Hooks
+
+#### `hooks/useAudio.tsx`
+
+**Purpose**: Core audio management
+**Features**:
+
+- Audio context initialization
+- Volume control
+- Audio state management
+- Browser compatibility handling
+
+#### `hooks/useSFX.tsx`
+
+**Purpose**: Sound effects management
+**Features**:
+
+- Sound effect triggers
+- Audio file loading
+- Effect customization
+- Performance optimization
+
+#### `hooks/useScrollSFX.tsx`
+
+**Purpose**: Scroll-based sound effects
+**Features**:
+
+- Scroll position detection
+- Dynamic audio triggers
+- Volume based on scroll speed
+- Section-based audio cues
+
+### Interaction Hooks
+
+#### `hooks/useHandelScrollSmooth.tsx`
+
+**Purpose**: Smooth scrolling implementation
+**Features**:
+
+- Smooth scroll animations
+- Offset handling
+- Duration control
+- Easing functions
+
+#### `hooks/useWebsiteRouter.tsx`
+
+**Purpose**: Custom routing logic
+**Features**:
+
+- Route state management
+- Navigation helpers
+- History management
+- Route transitions
+
+## Assets
+
+### Static Assets
+
+#### `src/assets/`
+
+Contains SVG icons and images:
+
+- **Technology Icons**: React, TypeScript, Node.js, etc.
+- **Social Media Icons**: GitHub, LinkedIn, Twitter, etc.
+- **Tool Icons**: Docker, Git, npm, etc.
+- **Custom Icons**: Experience, company logos
+
+#### `src/assets/cursor/`
+
+Custom cursor assets and animations.
+
+### Image Management
+
+#### `src/images.ts`
+
+Image configuration and optimization:
+
+- Image imports
+- Lazy loading setup
+- Responsive image configurations
+- Asset optimization
+
+## Audio System
+
+### Audio Context
+
+#### `src/audio/`
+
+Complete audio management system:
+
+- **`audio-context.tsx`**: Web Audio API wrapper
+- **`index.ts`**: Audio provider and context
+- **`sound.ts`**: Sound effect definitions and loading
+
+### Audio Features
+
+- Background music with controls
+- Interactive sound effects
+- Scroll-based audio feedback
+- User interaction sounds
+- Volume and mute controls
+
+## Routing
+
+### Route Structure
+
+```
+/           -> Main interactive portfolio
+/static     -> Static, non-interactive version
+/*          -> Fallback to main app
+```
+
+### Navigation
+
+- Smooth scroll navigation
+- Section-based routing
+- Browser history management
+- Mobile-friendly navigation
+
+## Styling
+
+### CSS Architecture
+
+- **TailwindCSS** for utility-first styling
+- Custom CSS animations
+- Responsive design patterns
+- Dark/light theme support
+
+### Style Organization
+
+```
+src/styles/
+├── index.css        # Main styles and imports
+├── components.css   # Component-specific styles
+├── animations.css   # Animation definitions
+└── utilities.css    # Custom utility classes
+```
+
+## Performance Optimizations
+
+### Code Splitting
+
+- Lazy loading for major components
+- Route-based code splitting
+- Dynamic imports for assets
+
+### Rendering Optimizations
+
+- React.memo for expensive components
+- useCallback and useMemo hooks
+- Suspense boundaries with loading states
+- Virtual scrolling for large lists
+
+### Asset Optimization
+
+- SVG icons for scalability
+- Optimized image formats
+- Audio file compression
+- Bundle size optimization
+
+## Development Guidelines
+
+### Component Patterns
+
+- Functional components with hooks
+- TypeScript for type safety
+- Props interface definitions
+- Consistent naming conventions
+
+### State Management
+
+- Local state with useState
+- Context for global state (audio)
+- Custom hooks for complex logic
+- Props drilling minimization
+
+### Accessibility
+
+- Semantic HTML elements
+- ARIA labels and roles
+- Keyboard navigation support
+- Screen reader compatibility
+
+## Browser Compatibility
+
+### Supported Browsers
+
+- Chrome/Chromium (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+### Feature Support
+
+- Web Audio API for audio features
+- CSS Grid and Flexbox
+- ES6+ JavaScript features
+- Modern CSS properties
+
+## Deployment
+
+### Build Process
+
+- Vite for fast builds
+- TypeScript compilation
+- Asset optimization
+- Bundle analysis
+
+### Environment Configuration
+
+- Development and production builds
+- Environment variables
+- Asset CDN configuration
+- Performance monitoring
+
+---
+
+This documentation provides a comprehensive understanding of the portfolio application's architecture and implementation details. For specific component APIs or detailed implementation guides, refer to the individual component source files.

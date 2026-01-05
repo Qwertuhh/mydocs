@@ -1,0 +1,485 @@
+# Assets
+
+This section documents all static assets used in the portfolio application, including images, icons, sounds, and other media files.
+
+## Table of Contents
+
+- [Image Assets](#image-assets)
+- [Icon Assets](#icon-assets)
+- [Audio Assets](#audio-assets)
+- [Font Assets](#font-assets)
+- [Asset Management](#asset-management)
+
+## Image Assets
+
+### Profile Images
+
+**Location**: `src/assets/profile-image/` and `public/profile-image/`
+
+#### Personal Photos
+
+- **arihant_jain.webp**: Professional headshot
+- **qwertuhh.svg**: Avatar illustration
+- **neutral_qwertuhh.svg**: Neutral avatar variant
+
+**Usage**:
+
+```tsx
+import profileImage from "@/assets/profile-image/arihant_jain.webp";
+
+<img src={profileImage} alt="Arihant Jain" />;
+```
+
+**Specifications**:
+
+- Format: WebP for photos, SVG for illustrations
+- Sizes: Optimized for web (max 200KB per image)
+- Responsive: Multiple sizes for different viewports
+
+---
+
+### Gallery Assets
+
+**Location**: `public/gallery/`
+
+#### Project Showcase
+
+- **postman.webp**: Postman API tool screenshot
+- **welltrack.mp4**: Welltrack project demo video
+
+**Usage**:
+
+```tsx
+<video src="/gallery/welltrack.mp4" controls />
+<img src="/gallery/postman.webp" alt="Postman Interface" />
+```
+
+**Specifications**:
+
+- Videos: MP4 format, H.264 encoding
+- Images: WebP format for optimization
+- Compression: Balanced quality/file size
+
+---
+
+## Icon Assets
+
+### Technology Icons
+
+**Location**: `src/assets/`
+
+#### Programming Languages
+
+- **react.svg**: React framework logo
+- **typescript.svg**: TypeScript language logo
+- **javascript.svg**: JavaScript language logo
+- **python.svg**: Python language logo
+- **rust.svg**: Rust language logo
+
+#### Frameworks & Libraries
+
+- **nextjs.svg**: Next.js framework logo
+- **nodejs.svg**: Node.js runtime logo
+- **docusaurus.svg**: Docusaurus documentation logo
+
+#### Tools & Platforms
+
+- **docker.svg**: Docker container platform
+- **git.svg**: Git version control
+- **npm.svg**: Node Package Manager
+- **bun.svg**: Bun runtime and package manager
+
+#### Databases & Monitoring
+
+- **mongodb.svg**: MongoDB database
+- **prisma.svg**: Prisma ORM
+- **prometheus.svg**: Prometheus monitoring
+- **grafana.svg**: Grafana visualization
+- **grafana-tempo.svg**: Grafana Tempo tracing
+- **grafana-loki.svg**: Grafana Loki logging
+
+#### Social & Communication
+
+- **github.svg**: GitHub platform
+- **linkedin.svg**: LinkedIn professional network
+- **discord.svg**: Discord chat platform
+- **medium.svg**: Medium publishing platform
+- **x.svg**: X (Twitter) social platform
+- **mail.svg**: Email communication
+
+**Usage**:
+
+```tsx
+import ReactIcon from "@/assets/react.svg";
+import TypeScriptIcon from "@/assets/typescript.svg";
+
+<div className="flex gap-4">
+  <ReactIcon className="w-8 h-8" />
+  <TypeScriptIcon className="w-8 h-8" />
+</div>;
+```
+
+**Specifications**:
+
+- Format: SVG for scalability
+- Size: Optimized for 24x24px display
+- Color: Monochrome with CSS fill support
+- License: Open source or custom created
+
+---
+
+### Custom Icons
+
+**Location**: `src/assets/cursor/`
+
+#### Cursor Assets
+
+- Custom cursor graphics and animations
+- Different states for various interactions
+- Optimized for smooth movement
+
+**Usage**:
+
+```tsx
+import cursorIcon from "@/assets/cursor/custom.svg";
+
+<CustomCursor icon={cursorIcon} />;
+```
+
+---
+
+## Audio Assets
+
+### Sound Effects
+
+**Location**: `public/sfx/`
+
+#### Interactive Sounds
+
+- **click.mp3**: Button click sound
+- **click.ogg**: OGG format for browser compatibility
+- **hard-typewriter-click.mp3**: Typewriter key press sound
+- **hard-typewriter-click.ogg**: OGG format alternative
+
+#### Ambient Sounds
+
+- **hover.mp3**: Hover interaction sound
+- **hover.ogg**: OGG format alternative
+- **scroll.mp3**: Scroll navigation sound
+- **scroll.ogg**: OGG format alternative
+
+#### Notification Sounds
+
+- **notification.mp3**: Alert notification sound
+- **notification.ogg**: OGG format alternative
+- **success.mp3**: Success action sound
+- **success.ogg**: OGG format alternative
+
+**Usage**:
+
+```tsx
+// Audio files are loaded dynamically through the audio system
+const { playClick } = useSFX();
+
+const handleClick = () => {
+  playClick(); // Plays /sfx/click.mp3 or .ogg
+};
+```
+
+**Specifications**:
+
+- Formats: MP3 and OGG for browser compatibility
+- Quality: 44.1kHz, 16-bit
+- Duration: Under 1 second for effects
+- Size: Under 50KB per sound file
+
+---
+
+### Background Music
+
+**Location**: `public/audio/`
+
+#### Ambient Tracks
+
+- Background music for the portfolio
+- Loopable tracks for continuous play
+- Volume-optimized for web use
+
+**Usage**:
+
+```tsx
+// Background music is managed through the audio context
+const { isPlaying, togglePlay } = useAudio();
+
+<button onClick={togglePlay}>{isPlaying ? "Pause" : "Play"} Music</button>;
+```
+
+---
+
+## Font Assets
+
+### Custom Fonts
+
+**Location**: Loaded via CDN or local fonts
+
+#### Typography
+
+- **Primary Font**: Modern sans-serif for UI
+- **Monospace Font**: Code snippets and technical content
+- **Display Font**: Headers and hero sections
+
+**Usage**:
+
+```css
+/* Applied through TailwindCSS configuration */
+.font-primary {
+  font-family: "Inter", sans-serif;
+}
+.font-mono {
+  font-family: "Fira Code", monospace;
+}
+.font-display {
+  font-family: "Space Grotesk", sans-serif;
+}
+```
+
+---
+
+## Asset Management
+
+### File Organization
+
+#### Directory Structure
+
+```
+src/assets/
+├── profile-image/     # Personal photos and avatars
+├── cursor/           # Custom cursor graphics
+├── *.svg            # Technology and tool icons
+└── *.svg            # Social media icons
+
+public/
+├── gallery/          # Project showcase media
+├── sfx/             # Sound effects
+├── audio/           # Background music
+└── profile-image/   # Public profile images
+```
+
+#### Naming Conventions
+
+- **kebab-case** for file names
+- **Descriptive names** indicating content
+- **Format suffixes** for multiple formats
+- **Version numbers** for updated assets
+
+### Optimization Strategies
+
+#### Image Optimization
+
+- **WebP format** for photos and complex images
+- **SVG format** for icons and simple graphics
+- **Responsive images** with srcset
+- **Lazy loading** for below-the-fold images
+- **Compression** balancing quality and file size
+
+#### Audio Optimization
+
+- **Multiple formats** (MP3, OGG) for compatibility
+- **Compression** for faster loading
+- **Short durations** for sound effects
+- **Loop optimization** for background music
+
+#### Icon Optimization
+
+- **SVG format** for scalability
+- **Minimal file size** with path optimization
+- **CSS fill support** for color customization
+- **Sprite sheets** for related icons
+
+### Loading Strategies
+
+#### Static Assets
+
+- **Direct imports** for components
+- **Public URLs** for media files
+- **CDN hosting** for external resources
+- **Cache headers** for performance
+
+#### Dynamic Loading
+
+- **Lazy loading** for heavy assets
+- **Progressive loading** for images
+- **Audio preloading** for smooth playback
+- **Asset bundling** optimization
+
+### Performance Considerations
+
+#### File Sizes
+
+- **Images**: Under 200KB for photos
+- **Icons**: Under 10KB for SVG files
+- **Audio**: Under 50KB for sound effects
+- **Total assets**: Under 2MB initial load
+
+#### Loading Order
+
+1. **Critical assets**: Icons, fonts, CSS
+2. **Above-the-fold**: Hero images, profile photos
+3. **Interactive**: Audio controls, cursor
+4. **Secondary**: Project images, gallery
+
+#### Caching Strategy
+
+- **Long-term caching** for static assets
+- **Version control** for cache busting
+- **Service worker** for offline support
+- **CDN distribution** for global performance
+
+---
+
+## Asset Usage Guidelines
+
+### Images
+
+#### Best Practices
+
+- Use **WebP format** for photographs
+- Use **SVG format** for icons and illustrations
+- Implement **lazy loading** for non-critical images
+- Provide **alt text** for accessibility
+- Use **responsive images** with appropriate breakpoints
+
+#### Code Examples
+
+```tsx
+// Optimized image component
+const OptimizedImage = ({ src, alt, ...props }) => (
+  <img src={src} alt={alt} loading="lazy" decoding="async" {...props} />
+);
+
+// Picture element for responsive images
+<picture>
+  <source srcSet="image.webp" type="image/webp" />
+  <source srcSet="image.jpg" type="image/jpeg" />
+  <img src="image.jpg" alt="Description" />
+</picture>;
+```
+
+### Icons
+
+#### Best Practices
+
+- Use **SVG format** for scalability
+- Implement **CSS fill** for color customization
+- Provide **accessible labels** for screen readers
+- Use **consistent sizing** across the application
+- Implement **hover states** for interactive icons
+
+#### Code Examples
+
+```tsx
+// Accessible icon component
+const Icon = ({ icon: IconComponent, label, ...props }) => (
+  <span role="img" aria-label={label} {...props}>
+    <IconComponent />
+  </span>
+);
+
+// Usage with CSS fill
+<ReactIcon className="w-6 h-6 fill-current text-blue-500" />;
+```
+
+### Audio
+
+#### Best Practices
+
+- Provide **multiple formats** for browser compatibility
+- Implement **user interaction** requirements for autoplay
+- Use **volume controls** for user preference
+- Provide **mute/unmute** functionality
+- Implement **loading states** for audio assets
+
+#### Code Examples
+
+```tsx
+// Audio hook usage
+const { isPlaying, togglePlay, volume, setVolume } = useAudio();
+
+// Audio controls
+<div className="audio-controls">
+  <button onClick={togglePlay}>{isPlaying ? "Pause" : "Play"}</button>
+  <input
+    type="range"
+    min="0"
+    max="1"
+    step="0.1"
+    value={volume}
+    onChange={(e) => setVolume(parseFloat(e.target.value))}
+  />
+</div>;
+```
+
+---
+
+## Asset Maintenance
+
+### Regular Tasks
+
+#### Updates
+
+- **Review and update** outdated logos and icons
+- **Compress new images** before adding
+- **Test audio files** across browsers
+- **Verify licenses** for external assets
+
+#### Cleanup
+
+- **Remove unused assets** from the codebase
+- **Optimize large files** for better performance
+- **Update alt texts** for better accessibility
+- **Audit file sizes** regularly
+
+### Version Control
+
+#### Git Strategy
+
+- **Commit assets** with descriptive messages
+- **Use Git LFS** for large binary files
+- **Track changes** in asset directories
+- **Branch strategy** for asset updates
+
+#### Documentation
+
+- **Update documentation** when adding new assets
+- **Maintain asset inventory** in documentation
+- **Document usage patterns** and best practices
+- **Track licenses** and attributions
+
+---
+
+## Browser Compatibility
+
+### Image Formats
+
+- **WebP**: Chrome, Firefox, Edge, Opera
+- **JPEG/PNG**: Universal support
+- **SVG**: Universal support with fallbacks
+- **AVIF**: Modern browsers (Chrome, Firefox)
+
+### Audio Formats
+
+- **MP3**: Universal support
+- **OGG**: Firefox, Chrome, Opera
+- **WAV**: Universal support (larger files)
+- **AAC**: Safari, Chrome, Edge
+
+### Fallback Strategies
+
+- **Format detection** with source elements
+- **Graceful degradation** for unsupported formats
+- **Alternative assets** for older browsers
+- **User notifications** for unsupported features
+
+---
+
+This documentation provides a comprehensive overview of all assets in the portfolio application. For specific asset details and usage examples, refer to the individual asset directories and source files.

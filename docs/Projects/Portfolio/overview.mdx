@@ -1,27 +1,174 @@
 ---
 title: Overview
+sidebar_position: 1
 ---
+
+Welcome to the comprehensive documentation for the portfolio application.
+This documentation is organized into separate sections for easy navigation and reference.
 
 This project showcases my projects and technical skills, highlighting my learning journey
 and development expertise. Explore my work, review the code, and see my progress in action.
 
-- [Source code](https://github.com/qwertuhh/portfolio)
-- [Preview](https://qwertuhh.netlify.app)
+Links for the project [source code](https://github.com/qwertuhh/portfolio) and [preview](https://qwertuhh.netlify.app).
 
-## Technologies Used
+- **[Codebase Documentation](./codebase.mdx)** - Complete overview of the entire application architecture
+- **[Components](./components.md)** - Page components and layout components documentation
+- **[UI Components](./ui-components.md)** - Reusable UI components and visual effects
+- **[Hooks](./hooks.md)** - Custom React hooks and their usage
+- **[Assets](./assets.md)** - Static assets, images, icons, and audio files
 
-- React
-- Node.js
-- MongoDB
-- Express
-- TypeScript
-- Tailwind CSS
+## Quick Start
 
-## Features
+### For Developers
 
-- Responsive design
-- Modern UI/UX
-- Interactive components
-- Howlers
-- GSAP
-- Framer Motion
+If you're new to the codebase, start with these sections:
+
+1. **[Deployment](./deployment.mdx)** - Understand the deployment process and CI/CD pipeline with **version control**.
+2. **[Codebase Documentation](./codebase.mdx)** - Understand the overall architecture
+3. **[Components](./components.md)** - Learn about the main page components
+4. **[UI Components](./ui-components.md)** - Explore reusable UI elements
+5. **[Hooks](./hooks.md)** - Understand custom hooks and state management
+
+### For Designers
+
+Focus on these sections:
+
+1. **[UI Components](./ui-components.md)** - Available UI components and their props
+2. **[Assets](./assets.md)** - Available images, icons, and media files
+3. **[Codebase Documentation](./codebase.mdx)** - Overall design system and styling approach
+
+### For Contributors
+
+Essential reading for all contributors:
+
+1. **[Codebase Documentation](./codebase.mdx)** - Architecture and development guidelines
+2. **[Components](./components.md)** - Component patterns and best practices
+3. **[Hooks](./hooks.md)** - Custom hook usage and creation guidelines
+
+## Application Overview
+
+The portfolio is a modern, interactive web application built with:
+
+### Technology Stack
+
+- **React 19** with TypeScript
+- **Vite** for build tooling
+- **TailwindCSS** for styling
+- **React Router** for navigation
+- **Web Audio API** for interactive audio _(used howler.js no direct control to native web audio api)_
+- **Howler.js** for audio management
+- **GSAP** for animations
+- **Framer Motion** for animations
+
+### Key Features
+
+- **Interactive Design**: Custom cursor, hover effects, and animations
+- **Audio System**: Background music and sound effects
+- **Responsive Layout**: Mobile-first design approach
+- **Performance**: Lazy loading and optimization
+- **Accessibility**: WCAG compliance and screen reader support
+- **Custom Cursor**: Custom cursor with hover effects
+
+### Architecture Highlights
+
+- **Component-Based**: Modular, reusable components
+- **Custom Hooks**: Encapsulated business logic
+- **Asset Management**: Optimized images and audio
+- **Type Safety**: Full TypeScript implementation
+
+## Development Guidelines
+
+### Code Organization
+
+```
+src/
+├── components/          # React components
+│   ├── ui/             # Reusable UI components
+│   └── *.tsx           # Page components
+├── hooks/              # Custom React hooks
+├── assets/             # Static assets
+├── audio/              # Audio system
+├── styles/             # CSS and styling
+└── types/              # TypeScript definitions
+```
+
+### Best Practices
+
+- Use functional components with hooks
+- Implement proper TypeScript types
+- Follow consistent naming conventions
+- Optimize for performance and accessibility
+- Write comprehensive tests
+
+### Contributing
+
+1. Read the relevant documentation sections
+2. Follow the established patterns
+3. Test your changes thoroughly
+4. Update documentation as needed
+5. Submit pull requests with clear descriptions
+
+## Getting Help
+
+### Common Questions
+
+**Q: How do I add a new component?**
+A: Read the [Components documentation](./components.md) for patterns and guidelines.
+
+**Q: How do I use custom hooks?**
+A: Refer to the [Hooks documentation](./hooks.md) for available hooks and usage examples.
+
+**Q: Where are the images and icons stored?**
+A: Check the [Assets documentation](./assets.md) for the complete asset inventory.
+
+**Q: How do I add new sound effects?**
+A: Follow the audio asset guidelines in the [Assets documentation](./assets.md).
+
+### Support Channels
+
+- **Documentation**: Start with the relevant section
+- **Code Comments**: Check inline documentation
+- **Examples**: Review existing implementations
+- **Issues**: Report bugs or request features
+
+## Documentation Standards
+
+### Format Guidelines
+
+- **Markdown**: All documentation in Markdown format
+- **Consistent Structure**: Standardized headings and sections
+- **Code Examples**: Practical usage examples
+- **Type Safety**: TypeScript interfaces and types
+
+### Maintenance
+
+- **Regular Updates**: Keep documentation current
+- **Version Control**: Track documentation changes
+- **Review Process**: Peer review for accuracy
+- **User Feedback**: Incorporate user suggestions
+
+## Navigation
+
+### Quick Links
+
+- **[Codebase Documentation](./codebase.mdx)** - Complete technical overview
+- **[Components](./components.md)** - Component API and usage
+- **[UI Components](./ui-components.md)** - UI library reference
+- **[Hooks](./hooks.md)** - Custom hook documentation
+- **[Assets](./assets.md)** - Asset inventory and guidelines
+
+### Search Tips
+
+- Use Ctrl+F to search within documents
+- Check the table of contents for quick navigation
+- Use sidebar to navigate through documents
+- Look for code examples and usage patterns
+- Refer to the overview documents for context
+
+---
+
+This documentation is designed to be comprehensive yet accessible. Whether you're a developer, designer, or contributor, you'll find the information you need to understand and work with the portfolio application effectively.
+
+:::warning
+For the most up-to-date information, always refer to the source code alongside this documentation.
+:::

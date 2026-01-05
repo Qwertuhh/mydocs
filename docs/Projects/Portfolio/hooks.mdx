@@ -1,0 +1,480 @@
+# Hooks
+
+This section documents all custom React hooks used in the portfolio application. These hooks encapsulate reusable logic and state management for common functionality.
+
+## Table of Contents
+
+- [Audio Hooks](#audio-hooks)
+- [Interaction Hooks](#interaction-hooks)
+- [Utility Hooks](#utility-hooks)
+
+## Audio Hooks
+
+### useAudio
+
+**File**: `src/hooks/useAudio.tsx`
+
+**Purpose**: Core audio management hook for handling Web Audio API initialization and global audio state.
+
+**Returns**:
+
+```typescript
+{
+  isPlaying: boolean;
+  volume: number;
+  isMuted: boolean;
+  togglePlay: () => void;
+  setVolume: (volume: number) => void;
+  toggleMute: () => void;
+  playSound: (soundName: string) => void;
+}
+```
+
+**Features**:
+
+- Web Audio API context initialization
+- Global audio state management
+- Volume control with persistence
+- Mute/unmute functionality
+- Sound effect playback
+- Browser compatibility handling
+- Audio context resume on user interaction
+
+**Usage**:
+
+```tsx
+const { isPlaying, togglePlay, volume, setVolume } = useAudio();
+```
+
+**Dependencies**:
+
+- Web Audio API
+- Audio context provider
+- Local storage for volume persistence
+
+**Browser Support**:
+
+- Modern browsers with Web Audio API support
+- Graceful fallback for unsupported browsers
+
+---
+
+### useSFX
+
+**File**: `src/hooks/useSFX.tsx`
+
+**Purpose**: Sound effects management hook for loading and playing interactive sound effects.
+
+**Returns**:
+
+```typescript
+{
+  playClick: () => void;
+  playHover: () => void;
+  playScroll: () => void;
+  playNotification: () => void;
+  isLoaded: boolean;
+  error: string | null;
+}
+```
+
+**Features**:
+
+- Sound effect file loading
+- Multiple sound effect types
+- Audio file caching
+- Error handling for failed loads
+- Performance optimization
+- Volume control integration
+
+**Usage**:
+
+```tsx
+const { playClick, playHover, isLoaded } = useSFX();
+
+// Play click sound on button click
+const handleClick = () => {
+  playClick();
+  // ... other logic
+};
+```
+
+**Sound Effects**:
+
+- **Click**: Button and interaction sounds
+- **Hover**: Mouse hover sounds
+- **Scroll**: Scroll-based sounds
+- **Notification**: Alert and notification sounds
+
+**Dependencies**:
+
+- Web Audio API
+- Audio context from useAudio
+- Audio file assets
+
+---
+
+### useScrollSFX
+
+**File**: `src/hooks/useScrollSFX.tsx`
+
+**Purpose**: Scroll-based sound effects hook that triggers audio based on scroll position and velocity.
+
+**Returns**:
+
+```typescript
+{
+  scrollProgress: number;
+  scrollVelocity: number;
+  currentSection: string;
+  isEnabled: boolean;
+  toggleEnabled: () => void;
+}
+```
+
+**Features**:
+
+- Scroll position detection
+- Scroll velocity calculation
+- Section-based audio triggers
+- Dynamic volume based on scroll speed
+- Performance optimized with throttling
+- Configurable scroll thresholds
+
+**Usage**:
+
+```tsx
+const { scrollProgress, currentSection, isEnabled } = useScrollSFX();
+
+// Scroll progress can be used for visual indicators
+<div style={{ width: `${scrollProgress * 100}%` }} />;
+```
+
+**Configuration**:
+
+- Scroll thresholds for audio triggers
+- Volume mapping to scroll velocity
+- Section detection based on DOM elements
+- Debouncing for performance
+
+**Dependencies**:
+
+- Scroll event listeners
+- Intersection Observer API
+- Audio context from useAudio
+
+---
+
+## Interaction Hooks
+
+### useHandelScrollSmooth
+
+**File**: `src/hooks/useHandelScrollSmooth.tsx`
+
+**Purpose**: Smooth scrolling implementation with configurable duration and easing functions.
+
+**Returns**:
+
+```typescript
+{
+  scrollToElement: (element: HTMLElement, options?: ScrollOptions) => void;
+  scrollToTop: () => void;
+  scrollToSection: (sectionId: string) => void;
+  isScrolling: boolean;
+}
+```
+
+**Features**:
+
+- Smooth scroll animations
+- Configurable duration and easing
+- Offset handling for fixed headers
+- Section-based navigation
+- Scroll completion callbacks
+- Performance optimization
+
+**Usage**:
+
+```tsx
+const { scrollToElement, scrollToSection } = useHandelScrollSmooth();
+
+// Scroll to specific element
+const handleNavClick = (sectionId: string) => {
+  scrollToSection(sectionId);
+};
+
+// Scroll to element with custom options
+scrollToElement(elementRef.current, {
+  duration: 800,
+  offset: 80,
+  easing: "easeInOutCubic",
+});
+```
+
+**Easing Functions**:
+
+- Linear
+- Ease-in, ease-out, ease-in-out
+- Cubic bezier curves
+- Custom easing functions
+
+**Dependencies**:
+
+- DOM element references
+- Scroll behavior API
+- RequestAnimationFrame
+
+---
+
+### useWebsiteRouter
+
+**File**: `src/hooks/useWebsiteRouter.tsx`
+
+**Purpose**: Custom routing logic hook for managing navigation state and history.
+
+**Returns**:
+
+```typescript
+{
+  currentPath: string;
+  previousPath: string;
+  navigate: (path: string) => void;
+  goBack: () => void;
+  goForward: () => void;
+  canGoBack: boolean;
+  canGoForward: boolean;
+}
+```
+
+**Features**:
+
+- Route state management
+- Navigation history tracking
+- Browser history integration
+- Route transition handling
+- Navigation guards
+- Custom route matching
+
+**Usage**:
+
+```tsx
+const { currentPath, navigate, canGoBack } = useWebsiteRouter();
+
+// Navigate to different section
+const handleNavigation = (path: string) => {
+  navigate(path);
+};
+
+// Check navigation state
+{
+  canGoBack && <button onClick={goBack}>Back</button>;
+}
+```
+
+**Route Patterns**:
+
+- Section-based routing (/about, /projects, /contact)
+- Query parameter handling
+- Hash-based routing fallback
+- Custom route matching
+
+**Dependencies**:
+
+- React Router
+- Browser History API
+- Route configuration
+
+---
+
+## Utility Hooks
+
+### Index Hook
+
+**File**: `src/hooks/index.ts`
+
+**Purpose**: Utility hook exports and common hook compositions.
+
+**Exports**:
+
+```typescript
+export {
+  useAudio,
+  useSFX,
+  useScrollSFX,
+  useHandelScrollSmooth,
+  useWebsiteRouter,
+} from "./ respective files";
+```
+
+**Features**:
+
+- Centralized hook exports
+- Hook composition utilities
+- Common hook patterns
+- Type definitions
+- Development helpers
+
+**Usage**:
+
+```tsx
+import { useAudio, useScrollSFX } from "@/hooks";
+```
+
+---
+
+## Hook Architecture
+
+### Design Patterns
+
+All hooks follow consistent design patterns:
+
+1. **Single Responsibility**: Each hook has one primary purpose
+2. **Composable**: Hooks can be combined for complex functionality
+3. **Type Safety**: Full TypeScript support
+4. **Performance**: Optimized with memoization and throttling
+5. **Error Handling**: Graceful error handling and fallbacks
+
+### Return Patterns
+
+Hooks use consistent return patterns:
+
+- **State Values**: Current state of managed data
+- **Action Functions**: Functions to modify state
+- **Metadata**: Additional information (loading, error states)
+- **Configuration**: Configurable options and settings
+
+### Dependency Management
+
+- **External Dependencies**: Browser APIs and libraries
+- **Internal Dependencies**: Other hooks and contexts
+- **Circular Dependencies**: Avoided through careful design
+- **Tree Shaking**: Optimized imports and exports
+
+---
+
+## Performance Considerations
+
+### Optimization Techniques
+
+1. **useCallback**: Stable function references
+2. **useMemo**: Expensive calculation caching
+3. **Throttling**: Event handler optimization
+4. **Debouncing**: Input event optimization
+5. **Lazy Loading**: Code splitting for large hooks
+
+### Memory Management
+
+- **Cleanup Functions**: Proper useEffect cleanup
+- **Event Listeners**: Remove listeners on unmount
+- **Timers**: Clear intervals and timeouts
+- **Observers**: Disconnect IntersectionObservers
+
+### Best Practices
+
+- Minimize re-renders with proper dependencies
+- Use appropriate dependency arrays
+- Implement proper error boundaries
+- Test performance on mobile devices
+- Monitor memory usage
+
+---
+
+## Error Handling
+
+### Strategy
+
+Each hook implements comprehensive error handling:
+
+- **Try-Catch Blocks**: Wrap async operations
+- **Error States**: Expose error information
+- **Fallback Values**: Provide sensible defaults
+- **Error Logging**: Console error reporting
+- **User Feedback**: Error state indicators
+
+### Error Types
+
+- **Network Errors**: Failed audio file loads
+- **Browser Compatibility**: Unsupported features
+- **User Permissions**: Denied audio context
+- **Invalid Inputs**: Incorrect parameter types
+
+---
+
+## Testing Considerations
+
+### Unit Testing
+
+Hooks should be tested for:
+
+- **State Management**: Correct state updates
+- **Event Handling**: Proper event processing
+- **Side Effects**: useEffect behavior
+- **Error Scenarios**: Error handling paths
+- **Performance**: Render optimization
+
+### Testing Tools
+
+- **React Testing Library**: Hook testing utilities
+- **Jest**: Test framework and mocking
+- **MSW**: API mocking for network requests
+- **User Event**: User interaction simulation
+
+### Test Coverage
+
+- State changes and updates
+- Event handler calls
+- Effect cleanup
+- Error conditions
+- Performance scenarios
+
+---
+
+## Browser Compatibility
+
+### Supported Features
+
+- **Web Audio API**: Modern audio functionality
+- **Intersection Observer**: Scroll detection
+- **RequestAnimationFrame**: Smooth animations
+- **History API**: Navigation management
+- **LocalStorage**: State persistence
+
+### Fallback Strategies
+
+- **Feature Detection**: Check API availability
+- **Polyfills**: Fallback implementations
+- **Graceful Degradation**: Reduced functionality
+- **User Notifications**: Feature support messages
+
+---
+
+## Development Guidelines
+
+### Creating New Hooks
+
+When creating new hooks:
+
+1. **Single Purpose**: Focus on one responsibility
+2. **TypeScript**: Use proper type definitions
+3. **Documentation**: Provide comprehensive JSDoc
+4. **Testing**: Write comprehensive tests
+5. **Performance**: Consider optimization opportunities
+
+### Hook Composition
+
+- Combine simple hooks for complex functionality
+- Share state through context when needed
+- Avoid circular dependencies
+- Use custom providers for complex state
+
+### Code Organization
+
+- Group related hooks in directories
+- Use consistent naming conventions
+- Provide clear documentation
+- Include usage examples
+- Export from index files
+
+---
+
+This documentation provides a comprehensive overview of all custom hooks in the portfolio application. For specific implementation details and advanced usage patterns, refer to the individual hook source files.

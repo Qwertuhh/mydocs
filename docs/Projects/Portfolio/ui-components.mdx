@@ -1,0 +1,598 @@
+# UI Components
+
+This section documents all reusable UI components in the portfolio application. These components are designed to be modular, reusable, and highly customizable.
+
+## Table of Contents
+
+- [Interactive Elements](#interactive-elements)
+- [Text Effects](#text-effects)
+- [Visual Effects](#visual-effects)
+- [Utility Components](#utility-components)
+
+## Interactive Elements
+
+### CustomCursor
+
+**File**: `src/components/ui/custom-cursor.tsx`
+
+**Purpose**: Custom cursor that follows mouse movement with smooth animations and different states.
+
+**Props**: None (uses global mouse tracking)
+
+**Features**:
+
+- Smooth cursor animations with easing
+- Different cursor states for different elements
+- Hover effects and transitions
+- Performance optimized with requestAnimationFrame
+- Mobile compatibility (hidden on touch devices)
+
+**Usage**:
+
+```tsx
+<CustomCursor />
+```
+
+**Dependencies**:
+
+- React hooks for mouse position tracking
+- CSS transforms for smooth movement
+- Event listeners for mouse interactions
+
+---
+
+### AudioControl
+
+**File**: `src/components/ui/audio-control.tsx`
+
+**Purpose**: Audio playback controls with volume, play/pause, and sound effects management.
+
+**Props**: None
+
+**Features**:
+
+- Play/pause functionality
+- Volume control with slider
+- Sound effects toggle
+- Visual feedback for audio state
+- Responsive design
+- Keyboard shortcuts support
+
+**Usage**:
+
+```tsx
+<AudioControl />
+```
+
+**Dependencies**:
+
+- Audio context from global provider
+- Custom audio hooks
+- SVG icons for controls
+
+---
+
+### ProjectCard
+
+**File**: `src/components/ui/project-card.tsx`
+
+**Purpose**: Individual project display card with hover effects and project metadata.
+
+**Props**:
+
+- `project`: Project object containing title, description, links, etc.
+
+**Features**:
+
+- Hover animations with scale and glow effects
+- Project metadata display
+- External links to live demos and repositories
+- Technology stack tags
+- Image lazy loading
+- Responsive design
+
+**Usage**:
+
+```tsx
+<ProjectCard
+  project={{
+    title: "Project Name",
+    description: "Project description",
+    demoUrl: "https://demo.com",
+    repoUrl: "https://github.com/user/repo",
+    technologies: ["React", "TypeScript"],
+    image: "/project-image.jpg",
+  }}
+/>
+```
+
+---
+
+## Text Effects
+
+### Typewriter
+
+**File**: `src/components/ui/typewriter.tsx`
+
+**Purpose**: Typewriter text animation effect with configurable speed and completion callbacks.
+
+**Props**:
+
+- `text`: string - Text to type
+- `speed?: number` - Typing speed in milliseconds
+- `onComplete?: () => void` - Callback when typing completes
+
+**Features**:
+
+- Configurable typing speed
+- Cursor blinking effect
+- Text completion callback
+- Support for multiple text strings
+- Pause and resume functionality
+
+**Usage**:
+
+```tsx
+<Typewriter
+  text="Hello, World!"
+  speed={100}
+  onComplete={() => console.log("Typing complete")}
+/>
+```
+
+---
+
+### HoverScrambleText
+
+**File**: `src/components/ui/hover-scramble-text.tsx`
+
+**Purpose**: Text scrambling effect on hover with character randomization.
+
+**Props**:
+
+- `children`: ReactNode - Text content
+- `scrambleChars?: string[]` - Custom scramble characters
+- `duration?: number` - Animation duration
+
+**Features**:
+
+- Character scrambling animation
+- Smooth transitions
+- Customizable scramble patterns
+- Hover trigger
+- Performance optimized
+
+**Usage**:
+
+```tsx
+<HoverScrambleText scrambleChars={["!", "@", "#", "$"]}>
+  Hover me
+</HoverScrambleText>
+```
+
+---
+
+### HoverFlipText
+
+**File**: `src/components/ui/hoverfliptext.tsx`
+
+**Purpose**: Text flip animation on hover with 3D transformation effect.
+
+**Props**:
+
+- `children`: ReactNode - Text content
+- `duration?: number` - Animation duration
+
+**Features**:
+
+- 3D flip effect
+- Fast transitions
+- Lightweight implementation
+- CSS transforms
+- Hover trigger
+
+**Usage**:
+
+```tsx
+<HoverFlipText duration={600}>Flip Text</HoverFlipText>
+```
+
+---
+
+### HoverTextInSlide
+
+**File**: `src/components/ui/hover-text-in-slide.tsx`
+
+**Purpose**: Text slide-in animation on hover with directional effects.
+
+**Props**:
+
+- `children`: ReactNode - Text content
+- `direction?: 'left' | 'right' | 'up' | 'down'` - Slide direction
+- `duration?: number` - Animation duration
+
+**Features**:
+
+- Directional slide effects
+- Smooth easing functions
+- Multiple text lines support
+- Customizable duration
+- Hover trigger
+
+**Usage**:
+
+```tsx
+<HoverTextInSlide direction="up" duration={300}>
+  Slide In Text
+</HoverTextInSlide>
+```
+
+---
+
+## Visual Effects
+
+### DottedGlowBackground
+
+**File**: `src/components/ui/dotted-glow-background.tsx`
+
+**Purpose**: Animated dotted background with dynamic glow effects using canvas.
+
+**Props**:
+
+- `dotCount?: number` - Number of dots
+- `glowIntensity?: number` - Glow effect intensity
+- `animationSpeed?: number` - Animation speed
+
+**Features**:
+
+- Particle system with dots
+- Dynamic glow effects
+- Performance optimized canvas rendering
+- Responsive to mouse movement
+- Configurable animation parameters
+
+**Usage**:
+
+```tsx
+<DottedGlowBackground dotCount={50} glowIntensity={0.5} animationSpeed={1} />
+```
+
+---
+
+### NoisyBg
+
+**File**: `src/components/ui/noisy-bg.tsx`
+
+**Purpose**: Noise texture background effect using procedural generation.
+
+**Props**:
+
+- `opacity?: number` - Noise opacity
+- `scale?: number` - Noise scale
+
+**Features**:
+
+- Procedural noise generation
+- Subtle visual texture
+- Lightweight implementation
+- CSS filters
+- Customizable intensity
+
+**Usage**:
+
+```tsx
+<NoisyBg opacity={0.1} scale={1} />
+```
+
+---
+
+### LiquidGlass
+
+**File**: `src/components/ui/liquid-glass.tsx`
+
+**Purpose**: Liquid glass morphism effect with animated distortion.
+
+**Props**:
+
+- `distortion?: number` - Distortion intensity
+- `blur?: number` - Backdrop blur amount
+
+**Features**:
+
+- Glass distortion effect
+- Animated liquid movement
+- Backdrop blur integration
+- CSS filters and transforms
+- Performance optimized
+
+**Usage**:
+
+```tsx
+<LiquidGlass distortion={0.5} blur={10} />
+```
+
+---
+
+### ImageBg
+
+**File**: `src/components/ui/image-bg.tsx`
+
+**Purpose**: Background image component with parallax and zoom effects.
+
+**Props**:
+
+- `src`: string - Image source
+- `parallax?: boolean` - Enable parallax effect
+- `zoom?: boolean` - Enable zoom on hover
+
+**Features**:
+
+- Parallax scrolling effect
+- Zoom effects on hover
+- Overlay gradients
+- Responsive image handling
+- Loading optimization
+
+**Usage**:
+
+```tsx
+<ImageBg src="/background.jpg" parallax={true} zoom={true} />
+```
+
+---
+
+## Utility Components
+
+### Loader
+
+**File**: `src/components/ui/loader.tsx`
+
+**Purpose**: Loading indicator component with animated spinner.
+
+**Props**:
+
+- `size?: 'small' | 'medium' | 'large'` - Loader size
+- `color?: string` - Loader color
+
+**Features**:
+
+- Animated spinner
+- Configurable size and colors
+- Suspense integration
+- Accessibility support
+- CSS animations
+
+**Usage**:
+
+```tsx
+<Loader size="medium" color="#3b82f6" />
+```
+
+---
+
+### Spinner
+
+**File**: `src/components/ui/spinner.tsx`
+
+**Purpose**: Simple loading spinner with multiple variants.
+
+**Props**:
+
+- `size?: number` - Spinner size in pixels
+- `color?: string` - Spinner color
+
+**Features**:
+
+- CSS animations
+- Multiple size variants
+- Customizable colors
+- Lightweight implementation
+- Performance optimized
+
+**Usage**:
+
+```tsx
+<Spinner size={24} color="#ffffff" />
+```
+
+---
+
+### Tooltip
+
+**File**: `src/components/ui/tooltip.tsx`
+
+**Purpose**: Tooltip component for hover information with smart positioning.
+
+**Props**:
+
+- `content`: ReactNode - Tooltip content
+- `position?: 'top' | 'bottom' | 'left' | 'right'` - Preferred position
+- `children`: ReactNode - Trigger element
+
+**Features**:
+
+- Smart position calculation
+- Fade animations
+- Content customization
+- Boundary detection
+- Accessibility support
+
+**Usage**:
+
+```tsx
+<Tooltip content="Tooltip text" position="top">
+  <button>Hover me</button>
+</Tooltip>
+```
+
+---
+
+### FancyTooltip
+
+**File**: `src/components/ui/fancy-tooltip.tsx`
+
+**Purpose**: Enhanced tooltip with rich content and advanced styling.
+
+**Props**:
+
+- `content`: ReactNode - Rich tooltip content
+- `title?: string` - Tooltip title
+- `children`: ReactNode - Trigger element
+
+**Features**:
+
+- Rich content support
+- Advanced positioning
+- Custom styling
+- Animation effects
+- Multiple content types
+
+**Usage**:
+
+```tsx
+<FancyTooltip
+  title="Information"
+  content={
+    <div>
+      Rich content with <strong>formatting</strong>
+    </div>
+  }
+>
+  <span>Hover for fancy tooltip</span>
+</FancyTooltip>
+```
+
+---
+
+### IconBadge
+
+**File**: `src/components/ui/icon-badge.tsx`
+
+**Purpose**: Icon display with optional badge notification.
+
+**Props**:
+
+- `icon`: ReactNode - Icon component
+- `badge?: number | string` - Badge content
+- `size?: number` - Icon size
+
+**Features**:
+
+- SVG icon support
+- Badge notifications
+- Hover effects
+- Configurable sizes
+- Multiple icon types
+
+**Usage**:
+
+```tsx
+<IconBadge icon={<SomeIcon />} badge={5} size={24} />
+```
+
+---
+
+## Component Architecture
+
+### Design Principles
+
+All UI components follow these design principles:
+
+1. **Modularity**: Each component has a single responsibility
+2. **Reusability**: Components are designed to be used in different contexts
+3. **Customizability**: Props allow for extensive customization
+4. **Performance**: Optimized for render performance
+5. **Accessibility**: Built with accessibility in mind
+
+### Prop Patterns
+
+Components use consistent prop patterns:
+
+- **Optional Props**: Most props are optional with sensible defaults
+- **Type Safety**: Full TypeScript support with proper interfaces
+- **Callback Props**: Event handlers follow naming conventions
+- **Children Props**: Flexible content composition
+
+### Styling Approach
+
+- **TailwindCSS**: Utility classes for rapid development
+- **CSS-in-JS**: Dynamic styles when needed
+- **CSS Variables**: Theme customization support
+- **Responsive Design**: Mobile-first approach
+
+### Animation Strategy
+
+- **CSS Transitions**: Simple hover and state changes
+- **CSS Animations**: Complex, repeating animations
+- **JavaScript Animations**: Performance-critical animations
+- **Spring Physics**: Natural motion effects
+
+---
+
+## Performance Considerations
+
+### Optimization Techniques
+
+1. **React.memo**: Prevent unnecessary re-renders
+2. **useCallback**: Stable function references
+3. **CSS Transforms**: Hardware acceleration
+4. **Debouncing**: Event handler optimization
+5. **Lazy Loading**: Component code splitting
+
+### Best Practices
+
+- Minimize DOM manipulations
+- Use CSS animations over JavaScript when possible
+- Implement proper cleanup in useEffect
+- Optimize images and assets
+- Test performance on mobile devices
+
+---
+
+## Accessibility
+
+### Features
+
+- **ARIA Labels**: Screen reader support
+- **Keyboard Navigation**: Tab index and focus management
+- **Color Contrast**: WCAG compliance
+- **Semantic HTML**: Proper element usage
+- **Focus Management**: Visible focus indicators
+
+### Testing
+
+- Screen reader testing
+- Keyboard navigation testing
+- Color contrast validation
+- Focus trap implementation
+- ARIA attribute verification
+
+---
+
+## Browser Compatibility
+
+### Supported Browsers
+
+- Chrome/Chromium (latest 2 versions)
+- Firefox (latest 2 versions)
+- Safari (latest 2 versions)
+- Edge (latest 2 versions)
+
+### Feature Support
+
+- CSS Grid and Flexbox
+- CSS Custom Properties
+- ES6+ JavaScript features
+- Web Audio API (for audio components)
+- Canvas API (for visual effects)
+
+### Fallbacks
+
+- Graceful degradation for older browsers
+- Feature detection with @supports
+- Polyfills when necessary
+- Alternative implementations
+
+---
+
+This documentation provides a comprehensive overview of all UI components in the portfolio application. For specific implementation details and advanced usage, refer to the individual component source files.
