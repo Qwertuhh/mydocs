@@ -104,12 +104,17 @@ const config: Config = {
             {
               type: "doc",
               label: "MyBackend",
-              docId: "Projects/MyBackend/overview", // ✅ valid docId
+              docId: "Projects/MyBackend/overview",
             },
             {
               type: "doc",
               label: "Portfolio",
-              docId: "Projects/Portfolio/overview", // ✅ another valid docId
+              docId: "Projects/Portfolio/overview",
+            },
+            {
+              type: "doc",
+              label: "Manchacho Catrers",
+              docId: "Projects/ManchachoCatrers/overview",
             },
           ],
         },

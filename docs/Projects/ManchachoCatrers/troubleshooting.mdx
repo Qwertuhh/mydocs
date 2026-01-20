@@ -1,0 +1,478 @@
+---
+title: Troubleshooting
+---
+
+## Common Issues and Solutions
+
+### Build Issues
+
+#### TypeScript Compilation Errors
+
+**Problem**: Type errors during build
+
+**Common Causes**:
+
+- Missing type definitions
+- Incorrect prop types
+- Import/export mismatches
+
+**Solutions**:
+
+```bash
+# Check TypeScript configuration
+npx tsc --noEmit
+
+# Install missing types
+npm install --save-dev @types/node @types/react @types/react-dom
+
+# Update type definitions
+npm update
+```
+
+**Example Fix**:
+
+```typescript
+// Before (error)
+function MenuItemCard(item, menuSubCategories) {
+    // Missing prop types
+}
+
+// After (correct)
+interface MenuItemCardProps {
+    item: MenuItemWithId;
+    menuSubCategories: MenuSubCategory[];
+}
+
+function MenuItemCard({ item, menuSubCategories }: MenuItemCardProps) {
+    // Properly typed
+}
+```
+
+#### Module Resolution Errors
+
+**Problem**: Cannot find module or module not found
+
+**Solutions**:
+
+1. **Check tsconfig.json paths**:
+
+```json
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"],
+            "@/components/*": ["src/components/*"],
+            "@/lib/*": ["src/lib/*"],
+            "@/types/*": ["src/types/*"]
+        }
+    }
+}
+```
+
+2. **Verify Vite configuration**:
+
+```typescript
+// vite.config.ts
+export default defineConfig({
+    resolve: {
+        alias: {
+            '@': path.resolve(__dirname, './src'),
+        },
+    },
+});
+```
+
+### Runtime Issues
+
+#### Component Not Rendering
+
+**Problem**: Component appears blank or doesn't render
+
+**Debugging Steps**:
+
+1. **Check React DevTools**:
+    - Open browser DevTools
+    - Go to React tab
+    - Inspect component tree
+
+2. **Console Logging**:
+
+```typescript
+function MenuItemCard(props: MenuItemCardProps) {
+  console.log('MenuItemCard props:', props);
+  console.log('Rendering MenuItemCard');
+
+  return (
+    <div>
+      {/* Component JSX */}
+    </div>
+  );
+}
+```
+
+3. **Check for Errors**:
+
+```typescript
+function MenuItemCard(props: MenuItemCardProps) {
+  try {
+    return (
+      <div className="menu-item-card">
+        <h3>{props.item.name}</h3>
+      </div>
+    );
+  } catch (error) {
+    console.error('MenuItemCard error:', error);
+    return <div>Error loading menu item</div>;
+  }
+}
+```
+
+#### State Not Updating
+
+**Problem**: State changes not triggering re-renders
+
+**Common Causes**:
+
+- Direct state mutation
+- Missing dependencies in useEffect/useMemo
+- Stale closures
+
+**Solutions**:
+
+```typescript
+// Wrong - direct mutation
+const [items, setItems] = useState([]);
+items.push(newItem); // This won't trigger re-render
+
+// Correct - immutable update
+const [items, setItems] = useState([]);
+setItems((prev) => [...prev, newItem]); // Triggers re-render
+```
+
+```typescript
+// Wrong - missing dependencies
+useEffect(() => {
+    setFilteredItems(items.filter((item) => item.name.includes(searchTerm)));
+}, [searchTerm]); // Missing 'items' dependency
+
+// Correct - all dependencies included
+useEffect(() => {
+    setFilteredItems(items.filter((item) => item.name.includes(searchTerm)));
+}, [searchTerm, items]); // Includes all dependencies
+```
+
+### Styling Issues
+
+#### Tailwind Classes Not Working
+
+**Problem**: CSS classes not applying
+
+**Solutions**:
+
+1. **Check Tailwind Configuration**:
+
+```javascript
+// tailwind.config.js
+module.exports = {
+    content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+    theme: {
+        extend: {},
+    },
+    plugins: [],
+};
+```
+
+2. **Verify CSS Import**:
+
+```css
+/* index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+3. **Check Class Names**:
+
+```tsx
+// Wrong - typo in class name
+<div className="bg-whit p-4"> {/* Should be bg-white */}
+
+// Correct - proper Tailwind classes
+<div className="bg-white p-4">
+```
+
+#### Responsive Design Issues
+
+**Problem**: Layout breaking on mobile devices
+
+**Debugging Steps**:
+
+1. **Use Browser DevTools**:
+    - Open DevTools (F12)
+    - Toggle device toolbar
+    - Test different screen sizes
+
+2. **Check Responsive Prefixes**:
+
+```tsx
+// Wrong - missing responsive prefixes
+<div className="text-2xl"> {/* Too large on mobile */}
+
+// Correct - responsive design
+<div className="text-lg md:text-2xl"> {/* Smaller on mobile */}
+```
+
+3. **Test Breakpoints**:
+
+```tsx
+// Common breakpoint usage
+<div className="
+  p-2        // All screens
+  sm:p-4     // Small screens (640px+)
+  md:p-6     // Medium screens (768px+)
+  lg:p-8     // Large screens (1024px+)
+  xl:p-10    // Extra large screens (1280px+)
+">
+```
+
+### Performance Issues
+
+#### Slow Initial Load
+
+**Problem**: Application takes too long to load
+
+**Solutions**:
+
+1. **Implement Code Splitting**:
+
+```typescript
+// Before - all components loaded upfront
+import MenuPage from './components/menu/MenuPage';
+import Gallery from './components/gallery';
+
+// After - lazy loading
+const MenuPage = lazy(() => import('./components/menu/MenuPage'));
+const Gallery = lazy(() => import('./components/gallery'));
+
+// Wrap with Suspense
+<Suspense fallback={<Loader />}>
+  <MenuPage />
+</Suspense>
+```
+
+2. **Optimize Images**:
+
+```tsx
+// Before - large images
+<img src="/large-image.jpg" alt="Menu item" />
+
+// After - optimized loading
+<img
+  src="/optimized-image.jpg"
+  alt="Menu item"
+  loading="lazy"
+  width="300"
+  height="200"
+/>
+```
+
+3. **Bundle Analysis**:
+
+```bash
+# Analyze bundle size
+npm run build
+npx vite-bundle-analyzer dist
+```
+
+#### Slow Filtering/Searching
+
+**Problem**: Menu search is slow with many items
+
+**Solutions**:
+
+1. **Use Memoization**:
+
+```typescript
+// Before - recalculates on every render
+const filteredItems = items.filter((item) =>
+    item.name.toLowerCase().includes(searchTerm.toLowerCase())
+);
+
+// After - memoized
+const filteredItems = useMemo(() => {
+    return items.filter((item) =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+}, [items, searchTerm]);
+```
+
+2. **Debounce Search Input**:
+
+```typescript
+import { useCallback, useRef } from 'react';
+
+const useDebounce = (callback, delay) => {
+    const timeoutRef = useRef();
+
+    return useCallback(
+        (...args) => {
+            clearTimeout(timeoutRef.current);
+            timeoutRef.current = setTimeout(() => callback(...args), delay);
+        },
+        [callback, delay]
+    );
+};
+
+// Usage
+const debouncedSearch = useDebounce((term) => {
+    setSearchTerm(term);
+}, 300);
+```
+
+### Navigation Issues
+
+#### Smooth Scrolling Not Working
+
+**Problem**: Clicking navigation links doesn't scroll smoothly
+
+**Solutions**:
+
+1. **Check Scroll Behavior**:
+
+```css
+/* CSS */
+html {
+    scroll-behavior: smooth;
+}
+```
+
+2. **Verify Element IDs**:
+
+```tsx
+// Make sure target elements have matching IDs
+<section id="highlights">
+  {/* Content */}
+</section>
+
+// Navigation link
+<a href="#highlights">Highlights</a>
+```
+
+3. **Handle Navbar Offset**:
+
+```typescript
+const scrollToSection = (targetId: string) => {
+    const element = document.getElementById(targetId);
+    if (!element) return;
+
+    const navbarHeight = 80; // Adjust based on your navbar height
+    const elementPosition = element.offsetTop - navbarHeight;
+
+    window.scrollTo({
+        top: elementPosition,
+        behavior: 'smooth',
+    });
+};
+```
+
+### Mobile-Specific Issues
+
+#### Touch/Swipe Not Working
+
+**Problem**: Swipe gestures not responding on mobile
+
+**Solutions**:
+
+1. **Check Touch Event Handlers**:
+
+```typescript
+const handleTouchStart = (e: React.TouchEvent) => {
+    const touchStartX = e.touches[0].clientX;
+    // Store start position
+};
+
+const handleTouchEnd = (e: TouchEvent) => {
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX - touchEndX;
+
+    if (Math.abs(diff) > 50) {
+        // Minimum swipe distance
+        // Handle swipe
+    }
+};
+```
+
+2. **Prevent Default Behaviors**:
+
+```css
+/* CSS - prevent default touch behaviors */
+.touch-container {
+    touch-action: pan-y; /* Allow vertical scrolling, prevent horizontal */
+}
+```
+
+#### Hamburger Menu Not Working
+
+**Problem**: Mobile menu not opening/closing
+
+**Debugging Steps**:
+
+1. **Check State Management**:
+
+```typescript
+const [menuOpen, setMenuOpen] = useState(false);
+
+// Add logging
+const toggleMenu = () => {
+    console.log('Toggling menu, current state:', menuOpen);
+    setMenuOpen(!menuOpen);
+};
+```
+
+2. **Verify Click Handler**:
+
+```tsx
+// Wrong - missing onClick
+<button className="hamburger-button">
+  <Menu />
+</button>
+
+// Correct - with onClick handler
+<button
+  className="hamburger-button"
+  onClick={() => setMenuOpen(!menuOpen)}
+>
+  <Menu />
+</button>
+```
+
+## Development Tools
+
+### Browser DevTools
+
+1. **React DevTools**: Component inspection and debugging
+2. **Network Tab**: Check API calls and resource loading
+3. **Console**: Error logging and debugging
+4. **Performance**: Analyze runtime performance
+
+### VS Code Extensions
+
+1. **ES7+ React/Redux/React-Native snippets**: React code snippets
+2. **TypeScript Importer**: Automatic import management
+3. **Tailwind CSS IntelliSense**: Tailwind class suggestions
+4. **Auto Rename Tag**: Rename paired HTML/XML tags
+
+### Debugging Checklist
+
+- [ ] Check browser console for errors
+- [ ] Verify network requests are successful
+- [ ] Test on different screen sizes
+- [ ] Check React DevTools component tree
+- [ ] Verify state updates are triggering re-renders
+- [ ] Test keyboard navigation
+- [ ] Validate HTML structure and accessibility
+
+---
+
+_Last Updated: January 2026_

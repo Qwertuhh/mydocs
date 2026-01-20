@@ -1,0 +1,282 @@
+---
+title: Overview
+sidebar_position: 1
+---
+
+Manchao Catrers is a React-based catering service website built with TypeScript, featuring a menu management system, responsive design, and bilingual support (English/Hindi).
+
+## Tech Stack
+
+- **Framework**: React 18 with TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS
+- **Routing**: React Router DOM
+- **Icons**: Lucide React
+- **Search**: Fuse.js (fuzzy search)
+- **UI Components**: Custom components with shadcn/ui patterns
+
+## Project Structure
+
+```text
+src/
+├── components/          # React components
+│   ├── hooks/         # Custom React hooks
+│   ├── menu/          # Menu-related components
+│   │   └── print/     # Print-specific menu components
+│   └── ui/            # Reusable UI components
+├── lib/               # Utility functions
+├── types/             # TypeScript type definitions
+├── App.tsx           # Main application component
+└── main.tsx          # Application entry point
+```
+
+## Core Features
+
+### 1. Menu Management System
+
+- **Hierarchical Categories**: Main categories with subcategories
+- **Bilingual Support**: English and Hindi text for all menu items
+- **Search & Filter**: Fuzzy search across multiple fields
+- **Pagination**: Wrap-around pagination with touch/swipe support
+- **Popular Items**: Special highlighting for featured menu items
+
+### 2. Navigation System
+
+- **Auto-hiding Navbar**: Hides on scroll, shows on hover at top
+- **Smooth Scrolling**: Animated scrolling to page sections
+- **Mobile Responsive**: Hamburger menu for mobile devices
+- **Keyboard Navigation**: Arrow key support for pagination
+
+### 3. Performance Optimizations
+
+- **Lazy Loading**: Components loaded on demand
+- **Image Optimization**: Lazy loading for menu item images
+- **Code Splitting**: Separate bundles for different routes
+
+## Key Components
+
+### Custom Hooks
+
+#### `useMenuFilter`
+
+**Purpose**: Advanced filtering and search for menu items
+**Features**:
+
+- Fuzzy search using Fuse.js
+- Category-based filtering with hierarchy support
+- Search across name, description, category, and Hindi text
+
+**Usage**:
+
+```tsx
+const { filteredItems } = useMenuFilter({
+    items: menuItems,
+    searchTerm: searchQuery,
+    selectedCategory: activeCategory,
+    menuSubCategories: subCategories,
+});
+```
+
+#### `useNavigation`
+
+**Purpose**: Keyboard and touch navigation support
+**Features**:
+
+- Arrow key navigation (left/right)
+- Touch/swipe gestures for mobile
+- Configurable callback functions
+
+**Usage**:
+
+```tsx
+const { handleTouchStart } = useNavigation({
+    onNextPage: () => setCurrentPage((prev) => prev + 1),
+    onPreviousPage: () => setCurrentPage((prev) => prev - 1),
+});
+```
+
+#### `usePagination`
+
+**Purpose**: Advanced pagination with wrap-around
+**Features**:
+
+- Wrap-around navigation (last → first, first → last)
+- Dependency-based page reset
+- Configurable items per page
+
+**Usage**:
+
+```tsx
+const {
+    currentPage,
+    totalPages,
+    currentItems,
+    goToNextPage,
+    goToPreviousPage,
+    goToPage,
+} = usePagination({
+    items: filteredItems,
+    itemsPerPage: 12,
+    dependencies: [searchTerm],
+});
+```
+
+### UI Components
+
+#### `Navbar`
+
+**Features**:
+
+- Auto-hide on scroll with hover reveal
+- Mobile hamburger menu
+- Smooth scroll to sections
+- Support for both hash anchors and routes
+
+#### `MenuItemCard`
+
+**Features**:
+
+- Bilingual display (English/Hindi)
+- Popular item badges
+- Category hierarchy display
+- Responsive image handling
+
+#### `HeroSection`
+
+**Features**:
+
+- Company branding
+- Social media integration
+- Responsive design
+- Call-to-action layout
+
+## Type System
+
+### Menu Types
+
+- **`MenuItem`**: Base menu item structure
+- **`MenuItemWithId`**: Menu item with database ID
+- **`MenuCategory`**: Main category with ID
+- **`MenuSubCategory`**: Subcategory with parent reference
+
+### Key Interfaces
+
+```typescript
+interface MenuItem {
+    name: string;
+    hindiName?: string;
+    imageSrc?: string;
+    description?: string;
+    hindiDescription?: string;
+    category: string;
+    popular?: boolean;
+    hindiCategory?: string;
+}
+```
+
+## Utility Functions
+
+### `cn()` - Class Name Merger
+
+**Purpose**: Intelligent Tailwind CSS class merging
+**Features**:
+
+- Combines clsx and tailwind-merge
+- Resolves class conflicts
+- Supports conditional classes
+
+**Usage**:
+
+```tsx
+cn('px-2 py-1', 'px-4'); // Returns 'py-1 px-4'
+cn('text-sm', { 'font-bold': isActive });
+```
+
+## Routing Structure
+
+- **`/`**: Home page with hero, reviews, gallery
+- **`/menu`**: Interactive menu with search and filtering
+- **`/menu/print`**: Print-friendly menu layout
+- **`/menu/single`**: Single page menu view
+
+## Development Guidelines
+
+### Component Patterns
+
+1. **Functional Components**: Use function components with hooks
+2. **TypeScript**: Strict typing for all props and returns
+3. **JSDoc**: Comprehensive documentation for all exports
+4. **Responsive Design**: Mobile-first approach with Tailwind
+
+### Code Organization
+
+1. **Custom Hooks**: Place in `src/components/hooks/`
+2. **UI Components**: Reusable components in `src/components/ui/`
+3. **Types**: Centralized in `src/types/`
+4. **Utilities**: Helper functions in `src/lib/`
+
+### Performance Considerations
+
+1. **Lazy Loading**: Use React.lazy for route components
+2. **Memoization**: Use useMemo/useMemo for expensive computations
+3. **Image Optimization**: Implement lazy loading for images
+4. **Bundle Splitting**: Separate routes into different chunks
+
+## Deployment
+
+### Build Process
+
+```bash
+npm run build        # Production build
+npm run preview      # Preview production build
+```
+
+### Environment Variables
+
+- Vite automatically loads `.env` files
+- Use `VITE_` prefix for client-side variables
+
+## Contributing
+
+### Adding New Menu Items
+
+1. Update menu data structure
+2. Ensure proper categorization
+3. Add both English and Hindi text
+4. Include high-quality images
+
+### Creating New Components
+
+1. Follow existing naming conventions
+2. Add comprehensive JSDoc
+3. Include TypeScript types
+4. Test responsive design
+5. Consider accessibility
+
+## Browser Support
+
+- Modern browsers (ES2020+)
+- Mobile responsive design
+- Touch gesture support
+- Keyboard navigation
+
+## Future Enhancements
+
+### Potential Improvements
+
+1. **Admin Panel**: Content management system
+2. **Online Ordering**: E-commerce integration
+3. **Advanced Search**: Filters by price, dietary restrictions
+4. **Analytics**: User behavior tracking
+5. **PWA**: Offline support and installability
+
+### Technical Debt
+
+1. **State Management**: Consider Redux/Zustand for complex state
+2. **Testing**: Add unit and integration tests
+3. **Error Boundaries**: Implement error handling
+4. **Performance**: Add performance monitoring
+
+---
+
+_Last Updated: January 2026_

@@ -1,0 +1,294 @@
+---
+title: API Reference
+---
+
+## Custom Hooks
+
+### useMenuFilter
+
+**Location**: `src/components/hooks/useMenuFilter.ts`
+
+**Interface**:
+
+```typescript
+interface UseMenuFilterProps {
+    items: MenuItemWithId[];
+    searchTerm: string;
+    selectedCategory: string;
+    menuSubCategories: MenuSubCategory[];
+}
+
+interface UseMenuFilterReturn {
+    filteredItems: MenuItemWithId[];
+}
+```
+
+**Parameters**:
+
+- `items`: Array of menu items to filter
+- `searchTerm`: Search query for fuzzy matching
+- `selectedCategory`: Currently selected category filter
+- `menuSubCategories`: Array of subcategories with hierarchy
+
+**Returns**: Object containing filtered menu items
+
+**Features**:
+
+- Fuzzy search across name, description, category, and Hindi text
+- Category hierarchy filtering (parent + subcategory matching)
+- Performance optimized with useMemo
+
+---
+
+### useNavigation
+
+**Location**: `src/components/hooks/useNavigation.ts`
+
+**Interface**:
+
+```typescript
+interface UseNavigationProps {
+    onNextPage: () => void;
+    onPreviousPage: () => void;
+}
+
+// Returns: { handleTouchStart: (e: React.TouchEvent) => void }
+```
+
+**Parameters**:
+
+- `onNextPage`: Callback for next page navigation
+- `onPreviousPage`: Callback for previous page navigation
+
+**Returns**: Touch event handler for swipe gestures
+
+**Features**:
+
+- Keyboard navigation (arrow keys)
+- Touch/swipe gesture support
+- 50px minimum swipe distance
+- Automatic cleanup of event listeners
+
+---
+
+### usePagination
+
+**Location**: `src/components/hooks/usePagination.ts`
+
+**Interface**:
+
+```typescript
+interface UsePaginationProps {
+    items: MenuItemWithId[];
+    itemsPerPage: number;
+    dependencies?: unknown[];
+}
+
+interface UsePaginationReturn {
+    currentPage: number;
+    totalPages: number;
+    currentItems: MenuItemWithId[];
+    goToNextPage: () => void;
+    goToPreviousPage: () => void;
+    goToPage: (page: number) => void;
+}
+```
+
+**Parameters**:
+
+- `items`: Array of items to paginate
+- `itemsPerPage`: Number of items per page
+- `dependencies`: Optional array that triggers page reset when changed
+
+**Returns**: Pagination state and navigation functions
+
+**Features**:
+
+- Wrap-around navigation (circular)
+- Automatic page reset on dependency changes
+- Safe page number handling
+
+---
+
+## UI Components
+
+### Navbar
+
+**Location**: `src/components/navbar.tsx`
+
+**Props**: None (self-contained)
+
+**Features**:
+
+- Auto-hide on scroll (shows when hovering at top)
+- Mobile hamburger menu
+- Smooth scrolling to page sections
+- Support for both hash anchors and React Router links
+
+**State Management**:
+
+- `menuOpen`: Mobile menu toggle state
+- `isVisible`: Scroll-based visibility
+- `isHoveringTop`: Mouse position tracking
+
+---
+
+### MenuItemCard
+
+**Location**: `src/components/menu/MenuItemCard.tsx`
+
+**Interface**:
+
+```typescript
+interface MenuItemCardProps {
+    item: MenuItemWithId;
+    menuSubCategories: MenuSubCategory[];
+}
+```
+
+**Props**:
+
+- `item`: Menu item data to display
+- `menuSubCategories`: Array for category hierarchy lookup
+
+**Features**:
+
+- Bilingual display (English/Hindi)
+- Popular item badge with Star icon
+- Category hierarchy display
+- Responsive image with lazy loading
+- Hover effects and transitions
+
+---
+
+### HeroSection
+
+**Location**: `src/components/heroSection.tsx`
+
+**Props**: None (self-contained)
+
+**Features**:
+
+- Company logo and branding
+- Social media integration
+- Responsive design
+- Full viewport height layout
+- Centered content with proper spacing
+
+---
+
+## Utility Functions
+
+### cn()
+
+**Location**: `src/lib/utils.ts`
+
+**Signature**:
+
+```typescript
+function cn(...inputs: ClassValue[]): string;
+```
+
+**Parameters**: Variable number of class values (strings, objects, arrays)
+
+**Returns**: Merged class name string
+
+**Features**:
+
+- Combines clsx and tailwind-merge
+- Resolves Tailwind CSS conflicts
+- Supports conditional classes
+- Optimized for performance
+
+**Examples**:
+
+```tsx
+cn('px-2 py-1', 'px-4'); // 'py-1 px-4'
+cn('text-sm', { 'font-bold': isActive }); // 'text-sm font-bold' when true
+cn(['flex', 'items-center'], 'gap-4'); // 'flex items-center gap-4'
+```
+
+---
+
+## Type Definitions
+
+### MenuItem
+
+**Location**: `src/types/menu.ts`
+
+```typescript
+interface MenuItem {
+    name: string;
+    hindiName?: string;
+    imageSrc?: string;
+    description?: string;
+    hindiDescription?: string;
+    category: string;
+    popular?: boolean;
+    hindiCategory?: string;
+}
+```
+
+### MenuItemWithId
+
+```typescript
+interface MenuItemWithId extends MenuItem {
+    id: string;
+}
+```
+
+### MenuCategory
+
+```typescript
+interface MenuCategory extends MenuCategoryItem {
+    id: string;
+}
+
+interface MenuCategoryItem {
+    name: string;
+    hindiName?: string;
+}
+```
+
+### MenuSubCategory
+
+```typescript
+interface MenuSubCategory extends MenuSubCategoryItem {
+    id: string;
+}
+
+interface MenuSubCategoryItem {
+    name: string;
+    hindiName?: string;
+    parentCategory: MenuCategory;
+}
+```
+
+---
+
+## Routing Components
+
+### App
+
+**Location**: `src/App.tsx`
+
+**Features**:
+
+- Lazy loading with Suspense
+- Responsive layout with dot pattern background
+- Component composition for home page
+- Error boundaries with Loader fallback
+
+### MenuPage
+
+**Location**: `src/components/menu/MenuPage.tsx`
+
+**Features**:
+
+- Complete menu page layout
+- Navbar + MenuPreview + Footer composition
+- Simple wrapper component
+
+---
+
+_Last Updated: January 2026_

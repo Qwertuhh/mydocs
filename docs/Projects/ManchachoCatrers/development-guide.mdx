@@ -1,0 +1,359 @@
+---
+title: Development Guide
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v18 or higher)
+- npm or yarn package manager
+- Git for version control
+
+### Installation
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd manchaocatrers
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+### Development Commands
+
+```bash
+npm run dev      # Start development server
+npm run build    # Build for production
+npm run preview  # Preview production build
+npm run lint     # Run ESLint
+npm run type-check # Run TypeScript type checking
+```
+
+## Project Architecture
+
+### Component Structure
+
+```text
+src/
+├── components/
+│   ├── hooks/              # Custom React hooks
+│   │   ├── useMenuFilter.ts
+│   │   ├── useNavigation.ts
+│   │   └── usePagination.ts
+│   ├── menu/               # Menu-specific components
+│   │   ├── MenuPage.tsx
+│   │   ├── MenuItemCard.tsx
+│   │   ├── MenuPreview.tsx
+│   │   └── print/          # Print-specific components
+│   ├── ui/                 # Reusable UI components
+│   │   ├── button.tsx
+│   │   ├── loader.tsx
+│   │   └── spinner.tsx
+│   ├── navbar.tsx
+│   ├── heroSection.tsx
+│   ├── footer.tsx
+│   └── ...other components
+├── lib/
+│   └── utils.ts           # Utility functions
+├── types/
+│   ├── index.ts
+│   └── menu.ts            # Menu-related types
+├── App.tsx               # Main app component
+└── main.tsx              # Entry point
+```
+
+### Data Flow
+
+1. **Menu Data**: Loaded from static files/API
+2. **Filtering**: `useMenuFilter` processes search and category filters
+3. **Pagination**: `usePagination` handles item display per page
+4. **Navigation**: `useNavigation` provides keyboard/touch controls
+5. **Rendering**: Components consume filtered, paginated data
+
+## Coding Standards
+
+### TypeScript Guidelines
+
+1. **Strict Typing**: All functions and components must have explicit types
+2. **Interface Naming**: Use PascalCase for interfaces (e.g., `MenuItemCardProps`)
+3. **Type Exports**: Export types from centralized `types/` directory
+4. **Generic Types**: Use generics where appropriate for reusability
+
+```typescript
+// Good example
+interface MenuItemCardProps {
+    item: MenuItemWithId;
+    menuSubCategories: MenuSubCategory[];
+}
+
+function MenuItemCard({
+    item,
+    menuSubCategories,
+}: MenuItemCardProps): JSX.Element {
+    // Component implementation
+}
+```
+
+### React Component Patterns
+
+1. **Functional Components**: Use function components with hooks
+2. **Props Destructuring**: Destructure props in function signature
+3. **Custom Hooks**: Extract complex logic into reusable hooks
+4. **Memoization**: Use `useMemo` and `useCallback` for performance
+
+```typescript
+// Good example
+const MenuItemCard = ({
+  item,
+  menuSubCategories,
+}: MenuItemCardProps) => {
+  const categoryInfo = useMemo(() => {
+    return menuSubCategories.find(sub => sub.name === item.category);
+  }, [item.category, menuSubCategories]);
+
+  return (
+    <div className="menu-item-card">
+      {/* Component JSX */}
+    </div>
+  );
+};
+```
+
+### JSDoc Documentation
+
+All exported functions, components, and interfaces must have JSDoc documentation:
+
+````typescript
+/**
+ * Component for displaying a single menu item with image, name, and description.
+ * Shows a "Popular" badge for marked items and supports bilingual text.
+ *
+ * @param props - Component props containing menu item data
+ * @returns JSX element for the menu item card
+ *
+ * @example
+ * ```tsx
+ * <MenuItemCard
+ *   item={menuItem}
+ *   menuSubCategories={subCategories}
+ * />
+ * ```
+ */
+function MenuItemCard(props: MenuItemCardProps) {
+    // Implementation
+}
+````
+
+### CSS/Tailwind Guidelines
+
+1. **Utility-First**: Prefer Tailwind utilities over custom CSS
+2. **Responsive Design**: Mobile-first approach with responsive prefixes
+3. **Component Composition**: Use the `cn()` utility for conditional classes
+4. **Consistent Spacing**: Use consistent spacing scale (4px base unit)
+
+```tsx
+// Good example
+<div
+    className={cn(
+        'bg-white rounded-md shadow-sm hover:shadow-lg transition-shadow duration-200 p-6',
+        isActive && 'ring-2 ring-blue-500'
+    )}
+>
+    {/* Content */}
+</div>
+```
+
+## State Management
+
+### Local State
+
+Use React's built-in state management for component-local state:
+
+```typescript
+const [menuOpen, setMenuOpen] = useState(false);
+const [currentPage, setCurrentPage] = useState(0);
+```
+
+### Custom Hooks
+
+Extract complex state logic into custom hooks:
+
+```typescript
+function useMenuFilter({ items, searchTerm, selectedCategory }) {
+    const filteredItems = useMemo(() => {
+        // Filtering logic
+    }, [items, searchTerm, selectedCategory]);
+
+    return { filteredItems };
+}
+```
+
+### Global State
+
+Currently, the app uses minimal global state. Consider adding state management (Redux/Zustand) for:
+
+- User preferences
+- Shopping cart functionality
+- Authentication state
+
+## Performance Optimization
+
+### Code Splitting
+
+Use `React.lazy` for route-level code splitting:
+
+```typescript
+const MenuPage = lazy(() => import('@/components/menu/MenuPage'));
+const Gallery = lazy(() => import('@/components/gallery'));
+
+// Usage with Suspense
+<Suspense fallback={<Loader />}>
+  <MenuPage />
+</Suspense>
+```
+
+### Memoization
+
+Use `useMemo` for expensive computations:
+
+```typescript
+const filteredItems = useMemo(() => {
+    return items.filter((item) =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+}, [items, searchTerm]);
+```
+
+### Image Optimization
+
+- Use `loading="lazy"` for images
+- Optimize image sizes
+- Consider using a CDN for production
+
+## Testing Strategy
+
+### Unit Testing
+
+```bash
+# Install testing dependencies
+npm install --save-dev @testing-library/react @testing-library/jest-dom jest
+
+# Run tests
+npm test
+```
+
+### Component Testing Example
+
+```typescript
+import { render, screen } from '@testing-library/react';
+import MenuItemCard from './MenuItemCard';
+
+test('renders menu item name', () => {
+  const item = {
+    id: '1',
+    name: 'Test Item',
+    category: 'Test Category'
+  };
+
+  render(<MenuItemCard item={item} menuSubCategories={[]} />);
+  expect(screen.getByText('Test Item')).toBeInTheDocument();
+});
+```
+
+## Deployment
+
+### Build Process
+
+```bash
+# Production build
+npm run build
+
+# Preview build locally
+npm run preview
+```
+
+### Environment Variables
+
+Create `.env.production` for production variables:
+
+```env
+VITE_API_URL=https://api.manchao-catrers.com
+VITE_GOOGLE_ANALYTICS_ID=GA-XXXXXXXXX
+```
+
+### Deployment Platforms
+
+The app is configured for deployment on:
+
+- **Netlify**: Automatic deployment on git push
+- **Vercel**: Alternative platform with similar setup
+- **Static Hosting**: Can be deployed to any static hosting service
+
+## Debugging
+
+### Common Issues
+
+1. **Build Errors**: Check TypeScript types and imports
+2. **Styling Issues**: Verify Tailwind class names and responsive prefixes
+3. **Performance**: Use React DevTools Profiler for performance analysis
+
+### Development Tools
+
+- **React DevTools**: Component inspection and debugging
+- **Redux DevTools**: If using Redux in the future
+- **Lighthouse**: Performance and accessibility auditing
+- **Browser DevTools**: General debugging and performance analysis
+
+## Contributing Guidelines
+
+### Branch Strategy
+
+- `main`: Production-ready code
+- `develop`: Integration branch for features
+- `feature/*`: Individual feature branches
+- `hotfix/*`: Critical bug fixes
+
+### Commit Messages
+
+Use conventional commit format:
+
+```text
+feat: add menu search functionality
+fix: resolve navbar mobile display issue
+docs: update component documentation
+refactor: optimize menu filtering logic
+```
+
+### Pull Request Process
+
+1. Create feature branch from `develop`
+2. Implement changes with tests
+3. Update documentation
+4. Submit pull request with description
+5. Code review and merge
+
+## Accessibility
+
+### Guidelines
+
+1. **Semantic HTML**: Use appropriate HTML5 semantic elements
+2. **ARIA Labels**: Add ARIA labels for screen readers
+3. **Keyboard Navigation**: Ensure all interactive elements are keyboard accessible
+4. **Color Contrast**: Maintain WCAG AA compliance for color contrast
+
+### Example
+
+```tsx
+<button aria-label="Close menu" className="close-button" onClick={handleClose}>
+    <X />
+</button>
+```
+
+---
+
+_Last Updated: January 2026_
